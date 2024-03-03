@@ -2,6 +2,8 @@ import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import './index.scss';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Layout from './layout/layout.tsx';
 import Login from './pages/auth/login.tsx';
@@ -14,6 +16,7 @@ import CategoriesPage from './pages/home/categories.tsx';
 import ProductCategoryPage from './pages/home/productCategory.tsx';
 import { Provider } from 'react-redux';
 import { store } from './redux/store.ts';
+import { ToastContainer } from 'react-toastify';
 
 const router = createBrowserRouter([
 	{
@@ -62,6 +65,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 				<App>
 					<RouterProvider router={router}></RouterProvider>
 				</App>
+				<ToastContainer />
 			</Provider>
 		</Suspense>
 	</React.StrictMode>,

@@ -31,16 +31,24 @@ const Login = () => {
 		formState: { errors, disabled },
 	} = useForm<IForm>({
 		mode: 'onSubmit',
-		resolver: yupResolver(schema),
+		// resolver: yupResolver(schema),
 	});
 
 	const [username, setUsername] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 
-	const handleLogin = async () => {
-		await loginAuth(username, password);
-		if (username && password) {
-			navigate('/');
+	const handleLogin = async (values: IForm) => {
+		const { username, password } = values;
+		try {
+			const response = await loginAuth(username, password);
+			if (response && response.data) {
+				console.log('Login successful!', response.data);
+				navigate('/');
+			} else {
+				console.log('Login failed.');
+			}
+		} catch (error) {
+			console.error('An error occurred during login:', error);
 		}
 	};
 
@@ -59,7 +67,7 @@ const Login = () => {
 								<Input
 									placeholder='Email address'
 									name='username'
-									value={username}
+									// value={username}
 									onChange={(e) => setUsername(e.target.value)}
 									errors={errors?.username}
 									control={control}></Input>
@@ -75,7 +83,7 @@ const Login = () => {
 									placeholder='**********'
 									name='password'
 									errors={errors?.password}
-									value={password}
+									// value={password}
 									onChange={(e) => setPassword(e.target.value)}
 									control={control}></InputPassword>
 							</div>

@@ -6,10 +6,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Input, InputPassword } from '../../components/input';
 import { Button } from '../../components/button';
 import { FcGoogle } from 'react-icons/fc';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { registerAuth, resetCreate } from '../../redux/auth/auth.slice';
+import { toast } from 'react-toastify';
 interface IForm {
 	email: string;
 	name: string;
@@ -26,6 +27,10 @@ const schema = yup.object({
 });
 
 const Register = () => {
+	const navigate = useNavigate();
+	const [email, setEmail] = useState<string>('');
+	const [password, setPassword] = useState<string>('');
+	const [name, setName] = useState<string>('');
 	const {
 		control,
 		handleSubmit,
@@ -34,24 +39,22 @@ const Register = () => {
 		mode: 'onSubmit',
 		// resolver: yupResolver(schema),
 	});
-	const [email, setEmail] = useState<string>('');
-	const [password, setPassword] = useState<string>('');
-	const [name, setName] = useState<string>('');
 
 	const dispatch = useAppDispatch();
 	const isCreateSuccess = useAppSelector((state) => state.auth.isCreateSuccess);
+
 	useEffect(() => {
 		if (isCreateSuccess === true) {
-			setEmail('');
-			setName('');
-
-			// dispatch(resetCreate());
+			toast.success('Thanh cong');
+			navigate('/auth/login');
 		}
 	}, [isCreateSuccess]);
 
-	const handleRegister = async () => {
+	const handleRegister = async (values: IForm) => {
+		const { email, name, password } = values;
 		// await registerAuth(email, name, password);
 		dispatch(registerAuth({ email, name, password }));
+		// registerAuth({ email, name, password });
 	};
 	return (
 		<div className='flex justify-center'>

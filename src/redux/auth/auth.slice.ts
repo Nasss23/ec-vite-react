@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-empty-pattern */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios from '../../config/axios-customize';
 
 interface IUser {
 	_id: number;
@@ -49,9 +49,13 @@ export const registerAuth = createAsyncThunk(
 const initialState: {
 	listUser: IUser[];
 	isCreateSuccess: boolean;
+	isRefreshToken: boolean;
+	errorRefreshToken: string;
 } = {
 	listUser: [],
 	isCreateSuccess: false,
+	isRefreshToken: false,
+	errorRefreshToken: '',
 };
 
 export const authSlice = createSlice({
@@ -60,6 +64,10 @@ export const authSlice = createSlice({
 	reducers: {
 		resetCreate(state) {
 			state.isCreateSuccess = false;
+		},
+		setRefreshTokenAction: (state, action) => {
+			state.isRefreshToken = action.payload?.status ?? false;
+			state.errorRefreshToken = action.payload?.message ?? '';
 		},
 	},
 	extraReducers: (builder) => {
@@ -77,6 +85,6 @@ export const authSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { resetCreate } = authSlice.actions;
+export const { resetCreate, setRefreshTokenAction } = authSlice.actions;
 
 export default authSlice.reducer;
