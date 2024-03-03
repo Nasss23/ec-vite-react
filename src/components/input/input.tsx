@@ -7,16 +7,21 @@ interface IProps {
 	errors?: any;
 	name: any;
 	type?: string;
+	value?: string;
+	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Input = ({
-	control,
-	name = '',
-	placeholder = '',
-	type = 'text',
-	errors,
-	...props
-}: IProps) => {
+const Input = (props: IProps) => {
+	const {
+		control,
+		name,
+		placeholder = '',
+		type = 'text',
+		value,
+		errors,
+		onChange,
+		...prop
+	} = props;
 	const { field } = useController({ control, name, defaultValue: '' });
 	return (
 		<input
@@ -29,7 +34,7 @@ const Input = ({
 			}`}
 			placeholder={placeholder}
 			{...field}
-			{...props}
+			{...prop}
 		/>
 	);
 };

@@ -6,15 +6,17 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Input, InputPassword } from '../../components/input';
 import { Button } from '../../components/button';
 import { FcGoogle } from 'react-icons/fc';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { loginAuth } from '../../config/api';
 
 interface IForm {
-	email: string;
+	username: string;
 	password: string;
 }
 
 const schema = yup.object({
-	email: yup.string().required('This is field required').email(''),
+	username: yup.string().required('This is field required').email(''),
 	password: yup
 		.string()
 		.required('This is field required')
@@ -22,6 +24,7 @@ const schema = yup.object({
 });
 
 const Login = () => {
+	const navigate = useNavigate();
 	const {
 		control,
 		handleSubmit,
@@ -31,29 +34,38 @@ const Login = () => {
 		resolver: yupResolver(schema),
 	});
 
-	const handleRegister = (e: any) => {
-		console.log(e);
+	const [username, setUsername] = useState<string>('');
+	const [password, setPassword] = useState<string>('');
+
+	const handleLogin = async () => {
+		await loginAuth(username, password);
+		if (username && password) {
+			navigate('/');
+		}
 	};
+
 	return (
 		<div className='flex justify-center'>
 			<div className='space-y-9 w-[600px]'>
 				<h1 className='text-xl font-bold leading-5'>Sign in</h1>
 				<form
-					action=''
-					onSubmit={handleSubmit(handleRegister)}
-					className='space-y-3'>
+					onSubmit={handleSubmit(handleLogin)}
+					className='space-y-3'
+					autoComplete='off'>
 					<div className='space-y-5'>
 						<div className='space-y-1'>
 							<div className='space-y-2'>
 								<Label htmlFor='email'>Email</Label>
 								<Input
 									placeholder='Email address'
-									name='email'
-									errors={errors?.email}
+									name='username'
+									value={username}
+									onChange={(e) => setUsername(e.target.value)}
+									errors={errors?.username}
 									control={control}></Input>
 							</div>
-							{errors?.email && (
-								<p className='text-red-500'>{errors?.email.message}</p>
+							{errors?.username && (
+								<p className='text-red-500'>{errors?.username.message}</p>
 							)}
 						</div>
 						<div className='space-y-1'>
@@ -63,6 +75,8 @@ const Login = () => {
 									placeholder='**********'
 									name='password'
 									errors={errors?.password}
+									value={password}
+									onChange={(e) => setPassword(e.target.value)}
 									control={control}></InputPassword>
 							</div>
 							{errors?.password && (
@@ -75,13 +89,7 @@ const Login = () => {
 								Forgot password
 							</span>
 						</div>
-						<Button
-							type='submit'
-							disabled={
-								errors.email && errors.password && !disabled ? true : false
-							}>
-							Submit
-						</Button>
+						<Button type='submit'>Submit</Button>
 					</div>
 					<div className='flex items-center space-x-3'>
 						<div className='w-full border border-base-200'></div>

@@ -11,6 +11,9 @@ import PageNotFound from './pages/error/pageError.tsx';
 import HomePage from './pages/home/home.tsx';
 import ProductPage from './pages/home/product.tsx';
 import CategoriesPage from './pages/home/categories.tsx';
+import ProductCategoryPage from './pages/home/productCategory.tsx';
+import { Provider } from 'react-redux';
+import { store } from './redux/store.ts';
 
 const router = createBrowserRouter([
 	{
@@ -37,12 +40,16 @@ const router = createBrowserRouter([
 				element: <HomePage></HomePage>,
 			},
 			{
-				path: '/product',
-				element: <ProductPage></ProductPage>,
+				path: 'product',
+				element: <ProductCategoryPage></ProductCategoryPage>,
 			},
 			{
-				path: '/categories',
+				path: 'categories',
 				element: <CategoriesPage></CategoriesPage>,
+			},
+			{
+				path: 'categories/:id',
+				element: <ProductPage></ProductPage>,
 			},
 		],
 	},
@@ -51,9 +58,11 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
 		<Suspense fallback={<div>Loading.....</div>}>
-			<App>
-				<RouterProvider router={router}></RouterProvider>
-			</App>
+			<Provider store={store}>
+				<App>
+					<RouterProvider router={router}></RouterProvider>
+				</App>
+			</Provider>
 		</Suspense>
 	</React.StrictMode>,
 );

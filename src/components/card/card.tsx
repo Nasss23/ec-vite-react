@@ -16,7 +16,7 @@ const Card: React.FC<IProps> = (props: IProps) => {
 	};
 	return (
 		<div className='px-2 py-3 border rounded-lg shadow-lg '>
-			<Link to='/product' className='space-y-3'>
+			<Link to='/categories/:id' className='space-y-3'>
 				<div className='h-[280px] group'>
 					<img
 						src={image}

@@ -7,7 +7,9 @@ import { Input, InputPassword } from '../../components/input';
 import { Button } from '../../components/button';
 import { FcGoogle } from 'react-icons/fc';
 import { Link } from 'react-router-dom';
-
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../redux/hook';
+import { registerAuth, resetCreate } from '../../redux/auth/auth.slice';
 interface IForm {
 	email: string;
 	name: string;
@@ -15,12 +17,12 @@ interface IForm {
 }
 
 const schema = yup.object({
-	name: yup.string().required('This is field required'),
-	email: yup.string().required('This is field required').email(''),
-	password: yup
-		.string()
-		.required('This is field required')
-		.min(8, 'Password must be 8 character '),
+	// name: yup.string().required('This is field required'),
+	// email: yup.string().required('This is field required').email(''),
+	// password: yup
+	// 	.string()
+	// 	.required('This is field required')
+	// 	.min(8, 'Password must be 8 character '),
 });
 
 const Register = () => {
@@ -30,11 +32,26 @@ const Register = () => {
 		formState: { errors, disabled },
 	} = useForm<IForm>({
 		mode: 'onSubmit',
-		resolver: yupResolver(schema),
+		// resolver: yupResolver(schema),
 	});
+	const [email, setEmail] = useState<string>('');
+	const [password, setPassword] = useState<string>('');
+	const [name, setName] = useState<string>('');
 
-	const handleRegister = (e: any) => {
-		console.log(e);
+	const dispatch = useAppDispatch();
+	const isCreateSuccess = useAppSelector((state) => state.auth.isCreateSuccess);
+	useEffect(() => {
+		if (isCreateSuccess === true) {
+			setEmail('');
+			setName('');
+
+			// dispatch(resetCreate());
+		}
+	}, [isCreateSuccess]);
+
+	const handleRegister = async () => {
+		// await registerAuth(email, name, password);
+		dispatch(registerAuth({ email, name, password }));
 	};
 	return (
 		<div className='flex justify-center'>
@@ -47,29 +64,31 @@ const Register = () => {
 					<div className='space-y-5'>
 						<div className='space-y-1'>
 							<div className='space-y-2'>
+								<Label htmlFor='name'>Username</Label>
+								<Input
+									placeholder='Username'
+									name='name'
+									// errors={errors?.name}
+									onChange={(event) => setName(event.target.value)}
+									control={control}></Input>
+							</div>
+							{errors?.name && (
+								<p className='text-red-500'>{errors?.name.message}</p>
+							)}
+						</div>
+						<div className='space-y-1'>
+							<div className='space-y-2'>
 								<Label htmlFor='email'>Email</Label>
 								<Input
 									type='email'
 									placeholder='Email address'
 									name='email'
 									errors={errors?.email}
+									onChange={(event) => setEmail(event.target.value)}
 									control={control}></Input>
 							</div>
 							{errors?.email && (
 								<p className='text-red-500'>{errors?.email.message}</p>
-							)}
-						</div>
-						<div className='space-y-1'>
-							<div className='space-y-2'>
-								<Label htmlFor='name'>Username</Label>
-								<Input
-									placeholder='Username'
-									name='name'
-									errors={errors?.name}
-									control={control}></Input>
-							</div>
-							{errors?.name && (
-								<p className='text-red-500'>{errors?.name.message}</p>
 							)}
 						</div>
 						<div className='space-y-1'>
@@ -80,6 +99,7 @@ const Register = () => {
 									placeholder='**********'
 									name='password'
 									errors={errors?.password}
+									onChange={(event) => setPassword(event.target.value)}
 									control={control}></InputPassword>
 							</div>
 							{errors?.password && (
@@ -92,15 +112,7 @@ const Register = () => {
 								Forgot password
 							</span>
 						</div>
-						<Button
-							type='submit'
-							disabled={
-								errors.email || errors.name || (errors.password && !disabled)
-									? true
-									: false
-							}>
-							Submit
-						</Button>
+						<Button type='submit'>Submit</Button>
 					</div>
 					<div className='flex items-center space-x-3'>
 						<div className='w-full border border-base-200'></div>

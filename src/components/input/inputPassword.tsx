@@ -10,16 +10,21 @@ interface IProps {
 	errors?: any;
 	name: any;
 	type?: string;
+	value?: string;
+	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const InputPassword = ({
-	control,
-	name = '',
-	placeholder = '',
-	type = 'text',
-	errors,
-	...props
-}: IProps) => {
+const InputPassword = (props: IProps) => {
+	const {
+		control,
+		name = '',
+		placeholder = '',
+		type = 'text',
+		value,
+		errors,
+		onChange,
+		...prop
+	} = props;
 	const { field } = useController({ control, name, defaultValue: '' });
 	const [showPassword, setShowpassword] = useState<boolean>(false);
 	const handleTogglePassword = () => {
@@ -37,7 +42,7 @@ const InputPassword = ({
 				}`}
 				placeholder={placeholder}
 				{...field}
-				{...props}
+				{...prop}
 			/>
 			<span
 				className='absolute text-2xl -translate-y-1/2 right-[25px] text-iconColor transform top-1/2'

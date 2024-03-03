@@ -41,8 +41,8 @@ const CategoriesPage = () => {
 				</div>
 			</div>
 			<div className='content py-9'>
-				<div className='grid grid-cols-5'>
-					<div className='pr-5 space-y-5 border border-y-transparent border-l-transparent border-neutral-300'>
+				<div className='grid grid-cols-12'>
+					<div className='col-span-2 pr-5 space-y-5 border border-y-transparent border-l-transparent border-neutral-300'>
 						<div className='flex items-center gap-4 py-4'>
 							<span className='text-xl'>
 								<BiCategory />
@@ -82,7 +82,7 @@ const CategoriesPage = () => {
 							</div>
 						</div>
 					</div>
-					<div className='col-span-4 pl-5'>
+					<div className='col-span-10 pl-5'>
 						<div className='grid grid-cols-4 gap-3'>
 							{Array(9)
 								.fill(0)

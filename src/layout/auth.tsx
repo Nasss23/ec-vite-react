@@ -3,7 +3,7 @@ import { Link, Outlet } from 'react-router-dom';
 
 const Auth = () => {
 	return (
-		<div className='pt-5'>
+		<div className='pt-5 content'>
 			<Link to={'/'} className='flex items-center justify-end gap-2'>
 				<span className='text-xl '>
 					<IoIosArrowRoundBack />

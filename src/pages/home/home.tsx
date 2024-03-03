@@ -1,6 +1,24 @@
 import { Card } from '../../components/card';
-
+import { useEffect, useState } from 'react';
+import { fetchData } from '../../config/api';
+import { useAppDispatch, useAppSelector } from '../../redux/hook';
+import { fetchListUser } from '../../redux/auth/auth.slice';
+interface IUser {
+	_id: string;
+	name: string;
+	email: string;
+}
 const HomePage = () => {
+	const [data, setData] = useState<IUser[]>([]);
+	// console.log('data: ', data);
+
+	useEffect(() => {
+		dispatch(fetchListUser());
+	}, []);
+
+	const dispatch = useAppDispatch();
+	const user = useAppSelector((state) => state.auth.listUser);
+	console.log('user: ', user);
 	return (
 		<div className='space-y-[50px] content'>
 			<div className='flex flex-col gap-[48px]'>
