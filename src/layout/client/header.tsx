@@ -1,13 +1,69 @@
 import { CiSearch } from 'react-icons/ci';
+import {
+	CodeOutlined,
+	ContactsOutlined,
+	DashOutlined,
+	LogoutOutlined,
+	MenuFoldOutlined,
+	RiseOutlined,
+	TwitterOutlined,
+} from '@ant-design/icons';
 import { FaFacebookF, FaRegHeart, FaTelegramPlane } from 'react-icons/fa';
 import { PiInstagramLogoFill } from 'react-icons/pi';
 import { IconCategory } from '../../assets/icons';
 import { IoIosArrowDown } from 'react-icons/io';
 import { IoPersonOutline } from 'react-icons/io5';
 import { BsCart2 } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../redux/hook';
+import { useState } from 'react';
+import { Dropdown } from 'antd';
+import { callLogout } from '../../config/api';
+import { setLogoutAction } from '../../redux/auth/account.slice';
 
 const Header = () => {
+	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
+	const isAuthenticated = useAppSelector(
+		(state) => state.account.isAuthenticated,
+	);
+	const user = useAppSelector((state) => state.account.user);
+	const [openMangeAccount, setOpenManageAccount] = useState<boolean>(false);
+
+	const handleLogout = async () => {
+		const res = await callLogout();
+		if (res && res.data) {
+			dispatch(setLogoutAction({}));
+			navigate('/');
+		}
+	};
+	const itemsDropdown = [
+		{
+			label: (
+				<label
+					style={{ cursor: 'pointer' }}
+					onClick={() => setOpenManageAccount(true)}>
+					Quản lý tài khoản
+				</label>
+			),
+			key: 'manage-account',
+			icon: <ContactsOutlined />,
+		},
+		{
+			label: <Link to={'/admin'}>Trang Quản Trị</Link>,
+			key: 'admin',
+			icon: <DashOutlined />,
+		},
+		{
+			label: (
+				<label style={{ cursor: 'pointer' }} onClick={() => handleLogout()}>
+					Đăng xuất
+				</label>
+			),
+			key: 'logout',
+			icon: <LogoutOutlined />,
+		},
+	];
 	return (
 		<header className='mb-7'>
 			<div className='py-[28px] content flex items-center justify-between'>
@@ -62,20 +118,14 @@ const Header = () => {
 							</span>
 						</div>
 					</div>
-					<div className='flex items-center gap-10 text-xs leading-5 text-white'>
-						<Link to={'/auth/login'} className='flex items-center gap-2'>
-							<span className='text-xl'>
-								<IoPersonOutline />
-							</span>
-							Sign in
-						</Link>
+					<div className='flex items-center gap-10 text-xs leading-5 text-white cursor-pointer'>
 						<div className='flex items-center gap-2'>
 							<span className='text-xl'>
 								<FaRegHeart />
 							</span>
 							Favorites
 						</div>
-						<div className='flex items-center gap-2'>
+						<div className='flex items-center gap-2 '>
 							<div className='flex items-center gap-2'>
 								<span className='text-xl'>
 									<BsCart2 />
@@ -85,6 +135,23 @@ const Header = () => {
 							<div className='flex items-center justify-center w-5 h-5 rounded-full bg-secondary-400'>
 								3
 							</div>
+						</div>
+						<div className='transition-all transform cursor-pointer hover:text-secondary-300 decoration-slice'>
+							{isAuthenticated === false ? (
+								<Link to={'/auth/login'} className='flex items-center gap-2'>
+									<span className='text-xl'>
+										<IoPersonOutline />
+									</span>
+									Sign in
+								</Link>
+							) : (
+								<Dropdown menu={{ items: itemsDropdown }} trigger={['click']}>
+									<div className='flex items-center gap-1'>
+										<span>Welcome</span>
+										<span className='text-sm font-semibold'>{user?.name}</span>
+									</div>
+								</Dropdown>
+							)}
 						</div>
 					</div>
 				</div>

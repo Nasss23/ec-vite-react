@@ -7,7 +7,10 @@ import { Input, InputPassword } from '../../components/input';
 import { Button } from '../../components/button';
 import { FcGoogle } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { setUserLoginInfo } from '../../redux/auth/account.slice';
+import { useDispatch } from 'react-redux';
+import { useAppSelector } from '../../redux/hook';
 import { loginAuth } from '../../config/api';
 
 interface IForm {
@@ -25,6 +28,7 @@ const schema = yup.object({
 
 const Login = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const {
 		control,
 		handleSubmit,
@@ -40,9 +44,11 @@ const Login = () => {
 	const handleLogin = async (values: IForm) => {
 		const { username, password } = values;
 		try {
-			const response = await loginAuth(username, password);
-			if (response && response.data) {
-				console.log('Login successful!', response.data);
+			const res = await loginAuth(username, password);
+			if (res?.data) {
+				localStorage.setItem('access_token', res.data.access_token);
+				localStorage.getItem('access_token');
+				dispatch(setUserLoginInfo(res.data.user));
 				navigate('/');
 			} else {
 				console.log('Login failed.');

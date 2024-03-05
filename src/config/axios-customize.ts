@@ -1,7 +1,7 @@
 import { Mutex } from 'async-mutex';
 import axiosClient from 'axios';
 import { store } from '../redux/store';
-import { setRefreshTokenAction } from '../redux/auth/auth.slice';
+import { setRefreshTokenAction } from '../redux/auth/account.slice';
 
 const instance = axiosClient.create({
 	baseURL: 'http://localhost:8000',
@@ -14,7 +14,7 @@ const NO_RETRY_HEADER = 'x-no-retry';
 const handleRefreshToken = async (): Promise<string | null> => {
 	return await mutex.runExclusive(async () => {
 		const res = await instance.get('/api/v1/auth/refresh');
-		// console.log(res);
+		console.log('handleRefreshToken', res);
 		if (res && res.data) {
 			return res.data;
 		} else return null;
@@ -28,6 +28,11 @@ instance.interceptors.request.use(function (config) {
 		window.localStorage &&
 		window.localStorage.getItem('access_token')
 	) {
+		console.log('window.localStorage ', window.localStorage);
+		console.log(
+			"window.localStorage.getItem('access_token')",
+			window.localStorage.getItem('access_token'),
+		);
 		config.headers.Authorization =
 			'Bearer ' + window.localStorage.getItem('access_token');
 	}

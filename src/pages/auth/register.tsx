@@ -39,22 +39,24 @@ const Register = () => {
 		mode: 'onSubmit',
 		resolver: yupResolver(schema),
 	});
-
 	const dispatch = useAppDispatch();
-	const isCreateSuccess = useAppSelector((state) => state.auth.isCreateSuccess);
-
-	useEffect(() => {
-		if (isCreateSuccess === true) {
-			toast.success('Thanh cong');
-			navigate('/auth/login');
-		}
-	}, [isCreateSuccess]);
 
 	const handleRegister = async (values: IForm) => {
-		const { email, name, password } = values;
-		// await registerAuth(email, name, password);
-		dispatch(registerAuth({ email, name, password }));
-		// registerAuth({ email, name, password });
+		try {
+			const { email, name, password } = values;
+			dispatch(registerAuth({ email, name, password }));
+			toast.success('Thanh cong');
+			navigate('/auth/login');
+		} catch (error: any) {
+			if (error.response && error.response.status === 400) {
+				// Thực hiện xử lý khi có lỗi 400 ở đây
+				// Ví dụ: hiển thị thông báo lỗi
+				console.error('Lỗi 400:', error.response.data);
+				toast.error('Lỗi 400');
+				// Dispatch action hoặc hiển thị thông báo
+			}
+			throw error; // Nếu không phải là lỗi 400, ném
+		}
 	};
 	return (
 		<div className='flex justify-center'>
