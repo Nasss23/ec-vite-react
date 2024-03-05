@@ -38,3 +38,7 @@ export const fetchData = () => {
 export const createCategory = (name: string, description: string) => {
 	return axios.post('/api/v1/category', { name, description });
 };
+
+export const fetchCategory = () => {
+	return axios.get('/api/v1/category');
+};

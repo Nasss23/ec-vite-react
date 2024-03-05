@@ -1,12 +1,8 @@
 import { CiSearch } from 'react-icons/ci';
 import {
-	CodeOutlined,
 	ContactsOutlined,
 	DashOutlined,
 	LogoutOutlined,
-	MenuFoldOutlined,
-	RiseOutlined,
-	TwitterOutlined,
 } from '@ant-design/icons';
 import { FaFacebookF, FaRegHeart, FaTelegramPlane } from 'react-icons/fa';
 import { PiInstagramLogoFill } from 'react-icons/pi';
