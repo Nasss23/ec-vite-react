@@ -1,8 +1,11 @@
-import { IAccount, IBackendRes, IGetAccount } from '../types/backend';
 import axios from './axios-customize'; // Use the same import statement
 
 //Auth account
-export const registerAuth = (name: string, email: string, password: string) => {
+export const registerAuthAcc = (
+	name: string,
+	email: string,
+	password: string,
+) => {
 	return axios.post('/api/v1/auth/register', {
 		name,
 		email,
@@ -11,17 +14,17 @@ export const registerAuth = (name: string, email: string, password: string) => {
 };
 
 export const loginAuth = (username: string, password: string) => {
-	return axios.post<IBackendRes<IAccount>>('/api/v1/auth/login', {
+	return axios.post('/api/v1/auth/login', {
 		username,
 		password,
 	});
 };
 
 export const callFetchAccount = () => {
-	return axios.get<IBackendRes<IGetAccount>>('/api/v1/auth/account');
+	return axios.get('/api/v1/auth/account');
 };
 export const callRefreshToken = () => {
-	return axios.get<IBackendRes<IAccount>>('/api/v1/auth/refresh');
+	return axios.get('/api/v1/auth/refresh');
 };
 
 //API USER

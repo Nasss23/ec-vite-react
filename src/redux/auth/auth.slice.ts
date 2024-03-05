@@ -1,22 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-empty-pattern */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from '../../config/axios-customize';
-
-interface IUser {
-	_id: number;
-	name: string;
-	email: string;
-}
+import { callFetchAccount } from '../../config/api';
 
 // First, create the thunk
-export const fetchListUser = createAsyncThunk(
-	'users/fetchUser',
-	async (userId, thunkAPI) => {
-		const res = await axios.get('http://localhost:8000/api/v1/users');
-		return res.data;
-	},
-);
 
 interface IAuthPayload {
 	email: string;
@@ -37,22 +24,24 @@ export const registerAuth = createAsyncThunk(
 			},
 		});
 		const data = await res.json();
-		if (data && data.id) {
-			//create success
-			//fetch lại dữ liệu khi được thêm mới
-			thunkAPI.dispatch(fetchListUser());
-		}
+
 		return data;
 	},
 );
 
+export const getAccount = createAsyncThunk(
+	'account/getAccount',
+	async (payload, thunkAPI) => {
+		const res = await callFetchAccount();
+		return res.data;
+	},
+);
+
 const initialState: {
-	listUser: IUser[];
 	isCreateSuccess: boolean;
 	isRefreshToken: boolean;
 	errorRefreshToken: string;
 } = {
-	listUser: [],
 	isCreateSuccess: false,
 	isRefreshToken: false,
 	errorRefreshToken: '',
@@ -72,11 +61,11 @@ export const authSlice = createSlice({
 	},
 	extraReducers: (builder) => {
 		// Add reducers for additional action types here, and handle loading state as needed
-		builder.addCase(fetchListUser.fulfilled, (state, action) => {
-			// Add user to the state array
-			console.log('Check action', action);
-			state.listUser = action.payload;
-		});
+		// builder.addCase(fetchListUser.fulfilled, (state, action) => {
+		// 	// Add user to the state array
+		// 	console.log('Check action', action);
+		// 	state.listUser = action.payload;
+		// });
 		builder.addCase(registerAuth.fulfilled, (state, action) => {
 			// Add user to the state array
 			state.isCreateSuccess = true;

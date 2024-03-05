@@ -5,9 +5,9 @@ import './index.scss';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import Layout from './layout/layout.tsx';
+import Layout from './layout/client/layout.tsx';
 import Login from './pages/auth/login.tsx';
-import Auth from './layout/auth.tsx';
+import Auth from './layout/client/auth.tsx';
 import Register from './pages/auth/register.tsx';
 import PageNotFound from './pages/error/pageError.tsx';
 import HomePage from './pages/home/home.tsx';

@@ -9,7 +9,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
-import { registerAuth, resetCreate } from '../../redux/auth/auth.slice';
+import { registerAuth } from '../../redux/auth/auth.slice';
 import { toast } from 'react-toastify';
 interface IForm {
 	email: string;
@@ -18,12 +18,12 @@ interface IForm {
 }
 
 const schema = yup.object({
-	// name: yup.string().required('This is field required'),
-	// email: yup.string().required('This is field required').email(''),
-	// password: yup
-	// 	.string()
-	// 	.required('This is field required')
-	// 	.min(8, 'Password must be 8 character '),
+	name: yup.string().required('This is field required'),
+	email: yup.string().required('This is field required').email(''),
+	password: yup
+		.string()
+		.required('This is field required')
+		.min(8, 'Password must be 8 character '),
 });
 
 const Register = () => {
@@ -37,7 +37,7 @@ const Register = () => {
 		formState: { errors, disabled },
 	} = useForm<IForm>({
 		mode: 'onSubmit',
-		// resolver: yupResolver(schema),
+		resolver: yupResolver(schema),
 	});
 
 	const dispatch = useAppDispatch();

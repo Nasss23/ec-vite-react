@@ -2,14 +2,6 @@ import { Mutex } from 'async-mutex';
 import axiosClient from 'axios';
 import { store } from '../redux/store';
 import { setRefreshTokenAction } from '../redux/auth/auth.slice';
-import { IBackendRes } from '../types/backend';
-interface AccessTokenResponse {
-	access_token: string;
-}
-
-/**
- * Creates an initial 'axios' instance with custom settings.
- */
 
 const instance = axiosClient.create({
 	baseURL: 'http://localhost:8000',
@@ -22,7 +14,7 @@ const NO_RETRY_HEADER = 'x-no-retry';
 const handleRefreshToken = async (): Promise<string | null> => {
 	return await mutex.runExclusive(async () => {
 		const res = await instance.get('/api/v1/auth/refresh');
-		console.log(res);
+		// console.log(res);
 		if (res && res.data) {
 			return res.data;
 		} else return null;
@@ -48,7 +40,7 @@ instance.interceptors.request.use(function (config) {
 
 instance.interceptors.response.use(
 	async (res) => {
-		console.log('res: ', res);
+		// console.log('res: ', res);
 		if (res) {
 			return res.data;
 		}

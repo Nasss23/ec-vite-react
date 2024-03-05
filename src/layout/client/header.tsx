@@ -1,7 +1,7 @@
 import { CiSearch } from 'react-icons/ci';
 import { FaFacebookF, FaRegHeart, FaTelegramPlane } from 'react-icons/fa';
 import { PiInstagramLogoFill } from 'react-icons/pi';
-import { IconCategory } from '../assets/icons';
+import { IconCategory } from '../../assets/icons';
 import { IoIosArrowDown } from 'react-icons/io';
 import { IoPersonOutline } from 'react-icons/io5';
 import { BsCart2 } from 'react-icons/bs';
