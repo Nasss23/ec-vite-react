@@ -8,7 +8,7 @@ import HomePage from './pages/client/home.client.tsx';
 import ProductPage from './pages/client/product.client.tsx';
 import CategoriesPage from './pages/client/categories.client.tsx';
 import ProductCategoryPage from './pages/client/category.client.tsx';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from './redux/hook.ts';
 import { getAccount } from './redux/auth/account.slice.ts';
 import LayoutAdmin from './layout/admin/layout.admin.tsx';
@@ -18,7 +18,7 @@ import BrandAdmin from './pages/admin/brand.admin.tsx';
 
 function App() {
 	const dispatch = useAppDispatch();
-	const isLoading = useAppSelector((state) => state.account.isLoading);
+	// const isLoading = useAppSelector((state) => state.account.isLoading);
 
 	useEffect(() => {
 		if (
@@ -80,6 +80,7 @@ function App() {
 					path: 'category',
 					element: <CategoryAdmin></CategoryAdmin>,
 				},
+
 				{
 					path: 'brand',
 					element: <BrandAdmin></BrandAdmin>,

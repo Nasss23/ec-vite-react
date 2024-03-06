@@ -49,7 +49,8 @@ const LayoutAdmin = () => {
 				<Sider
 					collapsible
 					collapsed={collapsed}
-					onCollapse={(value) => setCollapsed(value)}>
+					onCollapse={(value) => setCollapsed(value)}
+					className='hidden lg:block'>
 					<div className='demo-logo-vertical' />
 					<Menu
 						style={{
