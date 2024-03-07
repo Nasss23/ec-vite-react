@@ -46,8 +46,8 @@ export const updateABrand = createAsyncThunk(
 
 export const deleteABrand = createAsyncThunk(
 	'brand/deleteABrand',
-	async (updateCate: any, thunkAPI) => {
-		const res = await axios.delete(`/api/v1/brand/${updateCate._id}`);
+	async (detelete: any, thunkAPI) => {
+		const res = await axios.delete(`/api/v1/brand/${detelete._id}`);
 		const data = res.data;
 		thunkAPI.dispatch(fetchListBrand());
 		return data;

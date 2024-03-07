@@ -1,17 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
+
+import { useForm } from 'react-hook-form';
+import { Button, Input, Modal, Select } from 'antd';
+import { Label } from '../../components/label';
+import { toast } from 'react-toastify';
 import {
 	createABrand,
+	deleteABrand,
 	fetchListBrand,
 	resetCreateBrand,
 	resetUpadateBrand,
 	updateABrand,
 } from '../../redux/slice/brand.slice';
-import { useForm } from 'react-hook-form';
-import { Button, Input, Modal, Select } from 'antd';
-import { Label } from '../../components/label';
-import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 
 interface IState {
 	_id: string;
@@ -106,6 +109,30 @@ const BrandAdmin = () => {
 		setIsOpenUpdateModal(true);
 	};
 
+	const handleDelete = (id: any) => {
+		Swal.fire({
+			title: 'Bạn có chắc chắn xóa?',
+			// text: ,
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Đồng ý',
+			cancelButtonText: 'Hủy',
+		}).then((result) => {
+			if (result.isConfirmed) {
+				// Dispatch the delete action only if the user confirms
+				dispatch(deleteABrand({ _id: id }));
+
+				Swal.fire({
+					title: 'Xóa thành công',
+					// text: 'Danh mục đã bị xóa',
+					icon: 'success',
+				});
+			}
+		});
+	};
+
 	return (
 		<>
 			<div className='space-y-2'>
@@ -157,7 +184,9 @@ const BrandAdmin = () => {
 									<td className='px-6 py-4 whitespace-nowrap'>
 										{item.description}
 									</td>
-									<td className='px-6 py-4 whitespace-nowrap'></td>
+									<td className='px-6 py-4 whitespace-nowrap'>
+										{item.product.length}
+									</td>
 									<td className='px-6 py-4 whitespace-nowrap'>
 										{item.category.name}
 									</td>
@@ -167,7 +196,9 @@ const BrandAdmin = () => {
 											onClick={() => handleOpenModal(item)}>
 											Edit
 										</button>
-										<button className='px-3 py-2 bg-red-500 rounded-md cursor-pointer'>
+										<button
+											className='px-3 py-2 bg-red-500 rounded-md cursor-pointer'
+											onClick={() => handleDelete(item._id)}>
 											Delete
 										</button>
 									</td>
