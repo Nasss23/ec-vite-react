@@ -37,15 +37,12 @@ const CategoryAdmin = () => {
 
 	const dispatch = useAppDispatch();
 	const category = useAppSelector((state) => state.category.listCategory);
-	console.log('category: ', category.data);
+	// console.log('category: ', category.data);
 	const isCreateSuccess = useAppSelector(
 		(state) => state.category.isCreateSuccess,
 	);
 	const isUpdateSuccess = useAppSelector(
 		(state) => state.category.isUpdateSuccess,
-	);
-	const isDeleteSuccess = useAppSelector(
-		(state) => state.category.isDeleteSuccess,
 	);
 
 	useLayoutEffect(() => {
