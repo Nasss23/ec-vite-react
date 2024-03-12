@@ -1,1 +1,1 @@
-export { default as IconCategory } from './category';
+export { default as IconCategory } from './category'

@@ -1,5 +1,8 @@
-const HomeAdmin = () => {
-	return <div>HomeAdmin</div>;
-};
+import { useAppSelector } from '@/redux/hook'
 
-export default HomeAdmin;
+const HomeAdmin = () => {
+
+  return <div>HomeAdmin</div>
+}
+
+export default HomeAdmin

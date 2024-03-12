@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 @layer base {
-	body {
-		margin: 0 auto;
-	}
-	.content {
-		@apply max-w-[1440px] mx-auto px-[90px];
-	}
-	input,
-	textarea {
-		outline: none;
-	}
+  body {
+    margin: 0 auto;
+  }
+  .content {
+    @apply max-w-[1440px] mx-auto px-[90px];
+  }
+  input,
+  textarea {
+    outline: none;
+  }
 }

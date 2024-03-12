@@ -1,110 +1,106 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-empty-pattern */
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { callFetchAccount } from '../../config/api';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { callFetchAccount } from '../../config/api'
 
 // First, create the thunk
 
-export const getAccount = createAsyncThunk(
-	'account/getAccount',
-	async (payload, thunkAPI) => {
-		const res = await callFetchAccount();
-		return res.data;
-	},
-);
+export const getAccount = createAsyncThunk('account/getAccount', async (payload, thunkAPI) => {
+  const res = await callFetchAccount()
+  return res.data
+})
 
 interface IState {
-	isAuthenticated: boolean;
-	isLoading: boolean;
-	isRefreshToken: boolean;
-	errorRefreshToken: string;
-	user: {
-		_id: string;
-		email: string;
-		name: string;
-		role: {
-			_id: string;
-			name: string;
-		};
-	};
+  isAuthenticated: boolean
+  isLoading: boolean
+  isRefreshToken: boolean
+  errorRefreshToken: string
+  user: {
+    _id: string
+    email: string
+    name: string
+    role: {
+      _id: string
+      name: string
+    }
+  }
 }
 
 const initialState: IState = {
-	isAuthenticated: false,
-	isLoading: true,
-	isRefreshToken: false,
-	errorRefreshToken: '',
-	user: {
-		_id: '',
-		email: '',
-		name: '',
-		role: {
-			_id: '',
-			name: '',
-		},
-	},
-};
+  isAuthenticated: false,
+  isLoading: true,
+  isRefreshToken: false,
+  errorRefreshToken: '',
+  user: {
+    _id: '',
+    email: '',
+    name: '',
+    role: {
+      _id: '',
+      name: ''
+    }
+  }
+}
 
 export const accountSlice = createSlice({
-	name: 'user',
-	initialState,
-	reducers: {
-		setUserLoginInfo: (state, action) => {
-			state.isAuthenticated = true;
-			state.isLoading = false;
-			state.user._id = action?.payload?._id;
-			state.user.email = action.payload.email;
-			state.user.name = action.payload.name;
-			state.user.role = action?.payload?.role;
-		},
-		setLogoutAction: (state, action) => {
-			localStorage.removeItem('access_token');
-			state.isAuthenticated = false;
-			state.user = {
-				_id: '',
-				email: '',
-				name: '',
-				role: {
-					_id: '',
-					name: '',
-				},
-			};
-		},
-		setRefreshTokenAction: (state, action) => {
-			state.isRefreshToken = action.payload?.status ?? false;
-			state.errorRefreshToken = action.payload?.message ?? '';
-		},
-	},
-	extraReducers: (builder) => {
-		builder.addCase(getAccount.pending, (state, action) => {
-			if (action.payload) {
-				state.isAuthenticated = false;
-				state.isLoading = true;
-			}
-		});
+  name: 'user',
+  initialState,
+  reducers: {
+    setUserLoginInfo: (state, action) => {
+      state.isAuthenticated = true
+      state.isLoading = false
+      state.user._id = action?.payload?._id
+      state.user.email = action.payload.email
+      state.user.name = action.payload.name
+      state.user.role = action?.payload?.role
+    },
+    setLogoutAction: (state, action) => {
+      localStorage.removeItem('access_token')
+      state.isAuthenticated = false
+      state.user = {
+        _id: '',
+        email: '',
+        name: '',
+        role: {
+          _id: '',
+          name: ''
+        }
+      }
+    },
+    setRefreshTokenAction: (state, action) => {
+      state.isRefreshToken = action.payload?.status ?? false
+      state.errorRefreshToken = action.payload?.message ?? ''
+    }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getAccount.pending, (state, action) => {
+      if (action.payload) {
+        state.isAuthenticated = false
+        state.isLoading = true
+      }
+    })
 
-		builder.addCase(getAccount.fulfilled, (state, action) => {
-			if (action.payload) {
-				state.isAuthenticated = true;
-				state.isLoading = false;
-				state.user._id = action?.payload?.user._id;
-				state.user.email = action.payload.user?.email;
-				state.user.name = action.payload.user?.name;
-				state.user.role = action?.payload?.user?.role;
-			}
-		});
+    builder.addCase(getAccount.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.isAuthenticated = true
+        state.isLoading = false
+        state.user._id = action?.payload?.user._id
+        state.user.email = action.payload.user?.email
+        state.user.name = action.payload.user?.name
+        state.user.role = action?.payload?.user?.role
+      }
+    })
 
-		builder.addCase(getAccount.rejected, (state, action) => {
-			if (action.payload) {
-				state.isAuthenticated = false;
-				state.isLoading = false;
-			}
-		});
-	},
-});
+    builder.addCase(getAccount.rejected, (state, action) => {
+      if (action.payload) {
+        state.isAuthenticated = false
+        state.isLoading = false
+      }
+    })
+  }
+})
 
 // Action creators are generated for each case reducer function
-export const { setRefreshTokenAction, setLogoutAction, setUserLoginInfo } =
-	accountSlice.actions;
+export const { setRefreshTokenAction, setLogoutAction, setUserLoginInfo } = accountSlice.actions
 
-export default accountSlice.reducer;
+export default accountSlice.reducer
