@@ -19,9 +19,6 @@ const ModalBrandCreate = (props: any) => {
   const dispatch = useAppDispatch()
   const categoryData = useAppSelector((state) => state.category.listCategory)
   const isCreateSuccess = useAppSelector((state) => state.brand.isCreateSuccess)
-  const brand = useAppSelector((state) => state.brand.listBrand)
-
-  console.log('brand: ', brand)
 
   useEffect(() => {
     dispatch(fetchListBrand())

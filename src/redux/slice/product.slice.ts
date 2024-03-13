@@ -1,0 +1,138 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-empty-pattern */
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import axios from '../../config/axios-customize'
+import { IMeta, IProduct } from '../../types/backend'
+
+export const fetchListProduct = createAsyncThunk('product/fetchProduct', async (product, thunkAPI) => {
+  const res = await axios.get('/api/v1/product')
+  return res.data
+})
+
+interface IProductState {
+  _id?: string
+  name: string
+  price: number
+  image?: string
+  brand: string
+  description: string
+  quantity: number
+  discount?: number
+  discountStartDate?: Date | null
+  discountEndDate?: Date | null
+}
+export const createProduct = createAsyncThunk(
+  'product/createProduct',
+  async (createProduct: IProductState, thunkAPI) => {
+    const res = await axios.post('/api/v1/product', { ...createProduct })
+    const data = res.data
+    if (data?._id) {
+      thunkAPI.dispatch(fetchListProduct())
+    }
+    return data
+  }
+)
+
+export const updateProduct = createAsyncThunk('product/updateProduct', async (updateCate: IProductState, thunkAPI) => {
+  const res = await axios.patch(`/api/v1/product/${updateCate._id}`, {
+    ...updateCate
+  })
+  const data = res.data
+  if (data) {
+    thunkAPI.dispatch(fetchListProduct())
+  }
+  return data
+})
+
+export const deleteProduct = createAsyncThunk('product/deleteProduct', async (detelete: any, thunkAPI) => {
+  const res = await axios.delete(`/api/v1/product/${detelete._id}`)
+  const data = res.data
+  thunkAPI.dispatch(fetchListProduct())
+  return data
+})
+
+interface IState {
+  listProduct: {
+    data: IProduct[]
+    meta: IMeta
+  }
+  isCreateSuccess: boolean
+  isUpdateSuccess: boolean
+  isDeleteSuccess: boolean
+}
+
+const initialState: IState = {
+  listProduct: {
+    data: [
+      {
+        _id: '',
+        name: '',
+        price: 0,
+        image: '',
+        brand: {
+          _id: '',
+          name: '',
+          description: '',
+          category: ''
+        },
+        description: '',
+        slug: '',
+        quantity: 0,
+        discount: 0,
+        sold: 0,
+        discountStartDate: null,
+        discountEndDate: null
+      }
+    ],
+    meta: {
+      current: null,
+      pageSize: null,
+      pages: 1,
+      total: 1
+    }
+  },
+  isCreateSuccess: false,
+  isUpdateSuccess: false,
+  isDeleteSuccess: false
+}
+
+export const productSlice = createSlice({
+  name: 'product',
+  initialState,
+  reducers: {
+    resetCreateProduct(state) {
+      state.isCreateSuccess = false
+    },
+    resetUpadateProduct(state) {
+      state.isUpdateSuccess = false
+    },
+    resetDeleteleProduct(state) {
+      state.isDeleteSuccess = false
+    }
+  },
+  extraReducers: (builder) => {
+    // Add reducers for additional action types here, and handle loading state as needed
+    builder.addCase(fetchListProduct.fulfilled, (state, action) => {
+      // Add user to the state array
+      state.listProduct = action.payload
+    })
+    builder.addCase(createProduct.fulfilled, (state, action) => {
+      // Add user to the state array
+      state.isCreateSuccess = true
+    })
+    builder.addCase(updateProduct.fulfilled, (state, action) => {
+      // Add user to the state array
+      state.isUpdateSuccess = true
+    })
+    builder.addCase(deleteProduct.fulfilled, (state, action) => {
+      // Add user to the state array
+      state.isDeleteSuccess = true
+    })
+  }
+})
+
+// Action creators are generated for each case reducer function
+export const { resetCreateProduct, resetUpadateProduct } = productSlice.actions
+
+export default productSlice.reducer

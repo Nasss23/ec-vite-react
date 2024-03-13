@@ -5,18 +5,22 @@ import authReducer from './auth/auth.slice'
 import accountReducer from './auth/account.slice'
 import categoryReducer from './slice/category.slice'
 import brandReducer from './slice/brand.slice'
+import productReducer from './slice/product.slice'
+import cartReducer from './slice/cart.slice'
 
 const persistConfig = {
   key: 'root',
   version: 1,
   storage,
-  whiteList: ['category']
+  whiteList: ['category', 'brand']
 }
 const rootReducer = combineReducers({
   auth: authReducer,
   category: categoryReducer,
   brand: brandReducer,
-  account: accountReducer
+  account: accountReducer,
+  product: productReducer,
+  cart: cartReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

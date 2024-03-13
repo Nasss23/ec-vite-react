@@ -17,6 +17,9 @@ import LayoutAdmin from './layout/admin/layout.admin.tsx'
 import HomeAdmin from './pages/admin/home.admin.tsx'
 import CategoryAdmin from './pages/admin/category.admin.tsx'
 import BrandAdmin from './pages/admin/brand.admin.tsx'
+import ProductAdmin from './pages/admin/product.admin.tsx'
+import ProductCreateAdmin from './pages/admin/product/product.create.admin.tsx'
+import CartPage from './pages/client/cart.client.tsx'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -56,12 +59,16 @@ function App() {
           element: <ProductCategoryPage></ProductCategoryPage>
         },
         {
+          path: 'product/:id',
+          element: <ProductPage></ProductPage>
+        },
+        {
           path: 'categories',
           element: <CategoriesPage></CategoriesPage>
         },
         {
-          path: 'categories/:id',
-          element: <ProductPage></ProductPage>
+          path: 'cart',
+          element: <CartPage></CartPage>
         }
       ]
     },
@@ -81,6 +88,14 @@ function App() {
         {
           path: 'brand',
           element: <BrandAdmin></BrandAdmin>
+        },
+        {
+          path: 'product',
+          element: <ProductAdmin></ProductAdmin>
+        },
+        {
+          path: 'product/create',
+          element: <ProductCreateAdmin></ProductCreateAdmin>
         }
       ]
     }

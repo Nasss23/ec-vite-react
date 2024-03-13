@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useAppDispatch, useAppSelector } from '@/redux/hook'
 import { Modal } from 'antd'
-import React from 'react'
 import { useForm } from 'react-hook-form'
 
 const ModalProductCreate = (props: any) => {

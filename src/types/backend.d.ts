@@ -84,3 +84,15 @@ export interface IBrand {
     description: string
   }[]
 }
+
+export interface ICart {
+  _id: string
+  quantity: number
+  product?: {
+    _id: string
+    name: string
+    price: number
+    image: string
+    slug?: string
+  }
+}

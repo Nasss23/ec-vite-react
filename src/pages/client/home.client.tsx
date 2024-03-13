@@ -1,4 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useAppDispatch, useAppSelector } from '@/redux/hook'
 import { Card } from '../../components/card'
+import { useEffect } from 'react'
+import { fetchListProduct } from '@/redux/slice/product.slice'
+import { IProduct } from '@/types/backend'
 
 interface IUser {
   _id: string
@@ -7,6 +12,12 @@ interface IUser {
 }
 
 const HomePage = () => {
+  const dispatch = useAppDispatch()
+  const product = useAppSelector((state) => state.product.listProduct)
+
+  useEffect(() => {
+    dispatch(fetchListProduct())
+  }, [])
   return (
     <div className='space-y-[50px] content'>
       <div className='flex flex-col gap-[48px]'>
@@ -14,19 +25,17 @@ const HomePage = () => {
           <h1 className='text-[28px] font-medium leading-[44px] text-black'>Featured</h1>
           <span className='text-sm font-medium'>View all</span>
         </div>
-        <div className='grid grid-cols-5 gap-2.5'>
-          {Array(5)
-            .fill(0)
-            .map((item, index) => (
-              <Card
-                key={index}
-                discount={40}
-                title='Shark - Mens cabretta white golf glove'
-                image='https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llaox2hzjanq75_tn'
-                price={19}
-                rate={4}
-              ></Card>
-            ))}
+        <div className='grid grid-cols-5 gap-1'>
+          {product?.data.map((item: IProduct, index) => (
+            <Card
+              _id={item._id}
+              key={item._id}
+              discount={item.discount}
+              title={item.name}
+              image={item.image}
+              price={item.price}
+            ></Card>
+          ))}
         </div>
       </div>
       <div className=''></div>

@@ -8,16 +8,24 @@ import { IoPersonOutline } from 'react-icons/io5'
 import { BsCart2 } from 'react-icons/bs'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../redux/hook'
-import { useState } from 'react'
-import { Dropdown } from 'antd'
+import { useEffect, useState } from 'react'
+import { Dropdown, Popover } from 'antd'
 import { callLogout } from '../../config/api'
-import { setLogoutAction } from '../../redux/auth/account.slice'
+import { fetchListCart } from '@/redux/slice/cart.slice'
+import { Cart } from '@/components/cart'
+import { setLogoutAction } from '@/redux/auth/account.slice'
 
 const Header = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const isAuthenticated = useAppSelector((state) => state.account.isAuthenticated)
   const user = useAppSelector((state) => state.account.user)
+  const cart = useAppSelector((state) => state.cart.listCart)
+
+  useEffect(() => {
+    dispatch(fetchListCart())
+  }, [])
+
   const [openMangeAccount, setOpenManageAccount] = useState<boolean>(false)
 
   const handleLogout = async () => {
@@ -52,6 +60,16 @@ const Header = () => {
       icon: <LogoutOutlined />
     }
   ]
+  const [open, setOpen] = useState(false)
+
+  const hide = () => {
+    setOpen(false)
+  }
+
+  const handleOpenChange = (newOpen: boolean) => {
+    setOpen(newOpen)
+  }
+
   return (
     <header className='mb-7'>
       <div className='py-[28px] content flex items-center justify-between'>
@@ -106,15 +124,20 @@ const Header = () => {
               </span>
               Favorites
             </div>
-            <div className='flex items-center gap-2 '>
-              <div className='flex items-center gap-2'>
-                <span className='text-xl'>
-                  <BsCart2 />
-                </span>
-                Cart
+
+            {cart ? (
+              <Cart open={open} handleOpenChange={handleOpenChange}></Cart>
+            ) : (
+              <div className='flex items-center gap-2 '>
+                <div className='flex items-center gap-2'>
+                  <span className='text-xl'>
+                    <BsCart2 />
+                  </span>
+                  Cart
+                </div>
+                <div className='flex items-center justify-center rounded-full w-7 h-7 bg-secondary-400'>0</div>
               </div>
-              <div className='flex items-center justify-center w-5 h-5 rounded-full bg-secondary-400'>3</div>
-            </div>
+            )}
             <div className='transition-all transform cursor-pointer hover:text-secondary-300 decoration-slice'>
               {isAuthenticated === false ? (
                 <Link to={'/auth/login'} className='flex items-center gap-2'>

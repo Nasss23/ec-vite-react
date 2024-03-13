@@ -9,9 +9,9 @@ import { FcGoogle } from 'react-icons/fc'
 import { Link, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { setUserLoginInfo } from '../../redux/auth/account.slice'
-import { useDispatch } from 'react-redux'
-import { useAppSelector } from '../../redux/hook'
 import { loginAuth } from '../../config/api'
+import { fetchListCart } from '@/redux/slice/cart.slice'
+import { useAppDispatch, useAppSelector } from '@/redux/hook'
 
 interface IForm {
   username: string
@@ -25,7 +25,7 @@ const schema = yup.object({
 
 const Login = () => {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const {
     control,
     handleSubmit,
@@ -37,9 +37,15 @@ const Login = () => {
 
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const cart = useAppSelector((state) => state.cart.listCart)
+
+  useEffect(() => {
+    dispatch(fetchListCart())
+  }, [dispatch])
 
   const handleLogin = async (values: IForm) => {
     const { username, password } = values
+
     try {
       const res = await loginAuth(username, password)
       if (res?.data) {
