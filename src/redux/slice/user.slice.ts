@@ -67,7 +67,7 @@ export const userSlice = createSlice({
     resetUpadateProduct(state) {
       state.isUpdateSuccess = false
     },
-    resetDeleteleProduct(state) {
+    resetDeleteleUsers(state) {
       state.isDeleteSuccess = false
     }
   },
@@ -81,6 +81,6 @@ export const userSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { resetCreateProduct, resetUpadateProduct } = userSlice.actions
+export const { resetCreateProduct, resetUpadateProduct, resetDeleteleUsers } = userSlice.actions
 
 export default userSlice.reducer

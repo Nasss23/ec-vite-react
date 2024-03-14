@@ -9,26 +9,30 @@ import { Link } from 'react-router-dom'
 
 const CartContent = () => {
   const dispatch = useAppDispatch()
-  const cart = useAppSelector((state) => state.cart.listCart)
+  // const cart = useAppSelector((state) => state.cart.listCart)
   const infoUser = useAppSelector((state) => state.account.user)
-
   const users = useAppSelector((state) => state.users.listOneUser)
-  console.log('users: ', users)
+  const isDeleteSuccess = useAppSelector((state) => state.users.isDeleteSuccess)
+  console.log('isDeleteSuccess: ', isDeleteSuccess)
+  console.log('users: ', users.cart)
+  const cart = users.cart
 
   useEffect(() => {
     dispatch(fetchListCart())
     dispatch(fetchUserById({ _id: infoUser._id }))
-  }, [dispatch])
+    if (isDeleteSuccess === true) {
+      dispatch(fetchListCart())
+    }
+  }, [dispatch, isDeleteSuccess])
 
   const handleDeleteCart = (id: any) => {
     dispatch(deleteCart({ _id: id }))
   }
 
-  if (!cart) return <Empty />
-  return (
-    <div className='w-[400px] flex flex-col gap-5'>
-      <div className='flex flex-col '>
-        {cart?.data.map((item: ICart) => (
+  function Cart() {
+    return (
+      <>
+        {cart.map((item, index) => (
           <div
             className='flex justify-between py-2 border border-x-transparent border-t-transparent border-neutral-200'
             key={item._id}
@@ -57,10 +61,19 @@ const CartContent = () => {
             </div>
           </div>
         ))}
+      </>
+    )
+  }
+
+  if (!cart) return <Empty />
+  return (
+    <div className='w-[400px] flex flex-col gap-5'>
+      <div className='flex flex-col '>
+        <Cart></Cart>
       </div>
       <div className='flex items-center justify-between'>
         <span className='text-xs'>
-          Có <span className='font-medium text-blue-500'>{cart.data.length}</span> sản phẩm
+          Có <span className='font-medium text-blue-500'>{cart.length}</span> sản phẩm
         </span>
         <Link to={'/cart'} className='px-4 py-2 font-medium text-white bg-blue-500 rounded-md'>
           Xem giỏ hàng
