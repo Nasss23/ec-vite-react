@@ -11,7 +11,6 @@ const Cart = (props: any) => {
 
   const dispatch = useAppDispatch()
   const cart = useAppSelector((state) => state.cart.listCart)
-
   useEffect(() => {
     dispatch(fetchListCart())
   }, [dispatch])
@@ -32,7 +31,9 @@ const Cart = (props: any) => {
           </span>
           Cart
         </div>
-        <div className='flex items-center justify-center rounded-full w-7 h-7 bg-secondary-400'>{cart.data.length}</div>
+        <div className='flex items-center justify-center rounded-full w-7 h-7 bg-secondary-400'>
+          {cart?.data.length}
+        </div>
       </div>
     </Popover>
   )

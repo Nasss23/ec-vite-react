@@ -41,3 +41,8 @@ export const createCategory = (name: string, description: string) => {
 export const fetchCategory = () => {
   return axios.get('/api/v1/category')
 }
+
+//API User
+export const fetchUserById = (id: string) => {
+  return axios.get(`/api/v1/users/${id}`)
+}

@@ -59,7 +59,7 @@ function App() {
           element: <ProductCategoryPage></ProductCategoryPage>
         },
         {
-          path: 'product/:id',
+          path: 'product/:productId',
           element: <ProductPage></ProductPage>
         },
         {

@@ -78,6 +78,7 @@ const CategoriesPage = () => {
                 .fill(0)
                 .map((item, index) => (
                   <Card
+                    _id=''
                     key={index}
                     discount={40}
                     title='Shark - Mens cabretta white golf glove'

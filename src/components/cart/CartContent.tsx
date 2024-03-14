@@ -10,6 +10,9 @@ const CartContent = () => {
   const dispatch = useAppDispatch()
   const cart = useAppSelector((state) => state.cart.listCart)
 
+  const account = useAppSelector((state) => state.account.user)
+  const id = account._id
+
   useEffect(() => {
     dispatch(fetchListCart())
   }, [dispatch])
@@ -31,7 +34,7 @@ const CartContent = () => {
               <Link to={`/product/${item.product?._id}`} className='w-10 h-10 cursor-pointer'>
                 <img src={item.product?.image} alt='' className='object-cover rounded-md' />
               </Link>
-              <h4 className='text-sm line-clamp-1 w-[250px]'>{item.product?.name}</h4>
+              {/* <h4 className='text-sm line-clamp-1 w-[250px]'>{item.product?.name}</h4> */}
             </div>
             <div className='flex flex-col  gap-3 w-[120px]'>
               <div className='flex items-end gap-1'>

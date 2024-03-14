@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hook'
 import { createCart, resetCreateCart } from '@/redux/slice/cart.slice'
 import { Rate } from 'antd'
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 interface IProps {
   _id: string
@@ -33,7 +33,7 @@ const Card: React.FC<IProps> = (props: IProps) => {
   }
 
   return (
-    <div className='px-2 py-3 transition-all ease-linear border rounded-lg hover:shadow-xl decoration-clone '>
+    <div className='px-2 py-3 transition-all ease-linear border rounded-lg hover:shadow-2xl decoration-clone '>
       <Link to={`/product/${path}`} className='space-y-3'>
         <div className='h-[240px] flex items-center justify-center'>
           <img src={image} alt='' className='flex-shrink-0 object-cover w-full h-full' />
@@ -49,7 +49,10 @@ const Card: React.FC<IProps> = (props: IProps) => {
           </div>
         </div>
       </Link>
-      <button className='w-full px-5 py-2 mt-2 font-medium text-white bg-black rounded-lg ' onClick={handleButton}>
+      <button
+        className='w-full px-5 py-2 mt-2 font-medium text-white transition-all ease-linear bg-black rounded-lg hover:bg-blue-500 decoration-slice'
+        onClick={handleButton}
+      >
         Add to cart
       </button>
     </div>
