@@ -10,11 +10,13 @@ export const fetchListProduct = createAsyncThunk('product/fetchProduct', async (
   return res.data
 })
 
-export const fetchProductById = createAsyncThunk('product/fetchProductById', async (product: any, thunkAPI) => {
-  const res = await axios.get(`/api/v1/product/${product._id}`)
-  console.log('res: ', res)
-  return res.data
-})
+export const fetchProductById = createAsyncThunk(
+  'product/fetchProductById',
+  async (product: IProductState, thunkAPI) => {
+    const res = await axios.get(`/api/v1/product/${product._id}`)
+    return res.data
+  }
+)
 
 interface IProductState {
   _id?: string
@@ -63,7 +65,7 @@ interface IState {
     data: IProduct[]
     meta: IMeta
   }
-  listOneProduct: IProduct
+  product: IProduct
   isCreateSuccess: boolean
   isUpdateSuccess: boolean
   isDeleteSuccess: boolean
@@ -99,7 +101,7 @@ const initialState: IState = {
       total: 1
     }
   },
-  listOneProduct: {
+  product: {
     _id: '',
     name: '',
     price: 0,
@@ -145,7 +147,7 @@ export const productSlice = createSlice({
     })
     builder.addCase(fetchProductById.fulfilled, (state, action) => {
       // Add user to the state array
-      state.listOneProduct = action.payload
+      state.product = action.payload
     })
     builder.addCase(createProduct.fulfilled, (state, action) => {
       // Add user to the state array

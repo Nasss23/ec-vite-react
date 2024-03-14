@@ -7,6 +7,7 @@ import categoryReducer from './slice/category.slice'
 import brandReducer from './slice/brand.slice'
 import productReducer from './slice/product.slice'
 import cartReducer from './slice/cart.slice'
+import userReducer from './slice/user.slice'
 
 const persistConfig = {
   key: 'root',
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
   brand: brandReducer,
   account: accountReducer,
   product: productReducer,
-  cart: cartReducer
+  cart: cartReducer,
+  users: userReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

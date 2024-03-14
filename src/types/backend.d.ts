@@ -96,3 +96,13 @@ export interface ICart {
     slug?: string
   }
 }
+
+export interface IUserCart {
+  _id?: string
+  name?: string
+  cart: {
+    _id: string
+    quatity?: number
+    product: IProduct
+  }[]
+}

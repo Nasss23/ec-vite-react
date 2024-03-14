@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useAppDispatch, useAppSelector } from '@/redux/hook'
 import { deleteCart, fetchListCart } from '@/redux/slice/cart.slice'
+import { fetchUserById } from '@/redux/slice/user.slice'
 import { ICart } from '@/types/backend'
 import { Empty } from 'antd'
 import { useEffect } from 'react'
@@ -9,12 +10,14 @@ import { Link } from 'react-router-dom'
 const CartContent = () => {
   const dispatch = useAppDispatch()
   const cart = useAppSelector((state) => state.cart.listCart)
+  const infoUser = useAppSelector((state) => state.account.user)
 
-  const account = useAppSelector((state) => state.account.user)
-  const id = account._id
+  const users = useAppSelector((state) => state.users.listOneUser)
+  console.log('users: ', users)
 
   useEffect(() => {
     dispatch(fetchListCart())
+    dispatch(fetchUserById({ _id: infoUser._id }))
   }, [dispatch])
 
   const handleDeleteCart = (id: any) => {
@@ -34,7 +37,7 @@ const CartContent = () => {
               <Link to={`/product/${item.product?._id}`} className='w-10 h-10 cursor-pointer'>
                 <img src={item.product?.image} alt='' className='object-cover rounded-md' />
               </Link>
-              {/* <h4 className='text-sm line-clamp-1 w-[250px]'>{item.product?.name}</h4> */}
+              <h4 className='text-sm line-clamp-1 w-[250px]'>{item.product?.name}</h4>
             </div>
             <div className='flex flex-col  gap-3 w-[120px]'>
               <div className='flex items-end gap-1'>

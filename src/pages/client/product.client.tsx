@@ -8,11 +8,9 @@ import { Link, useParams } from 'react-router-dom'
 const ProductPage = () => {
   const { productId } = useParams() // Lấy `productId` từ URL
 
-  console.log('productId: ', productId)
   const _id = productId
   const dispatch = useAppDispatch()
   const product = useAppSelector((state) => state.product.listOneProduct)
-  console.log('product: ', product)
   const isCreateSuccess = useAppSelector((state) => state.cart.isCreateSuccess)
 
   useEffect(() => {
@@ -28,6 +26,7 @@ const ProductPage = () => {
     }
   }
 
+  if (!product) return null
   return (
     <div className='space-y-5 pb-7 content'>
       <div>
