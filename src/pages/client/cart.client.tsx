@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useAppDispatch, useAppSelector } from '@/redux/hook'
-import { deleteCart, fetchListCart } from '@/redux/slice/cart.slice'
+import { decrementCart, deleteCart, fetchListCart, incrementCart, updateCart } from '@/redux/slice/cart.slice'
 import { Breadcrumb, Checkbox } from 'antd'
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import axios from '../../config/axios-customize'
 
 const CartPage = () => {
   const dispatch = useAppDispatch()
@@ -56,6 +57,12 @@ const CartPage = () => {
     }, 0)
   }
 
+  const increamentQuantity = async (id: string) => {
+    dispatch(incrementCart({ _id: id }))
+  }
+  const decrementQuantity = async (id: string) => {
+    dispatch(decrementCart({ _id: id }))
+  }
   return (
     <div className='space-y-5 content pb-7'>
       <div>
@@ -100,9 +107,19 @@ const CartPage = () => {
                 <div className='flex items-center gap-20'>
                   <div className='flex items-center gap-5'>
                     <div className='flex items-center'>
-                      <span className='px-2 border cursor-pointer border-neutral-300'>-</span>
+                      <span
+                        className='px-2 border cursor-pointer border-neutral-300'
+                        onClick={() => decrementQuantity(item._id)}
+                      >
+                        -
+                      </span>
                       <div className='px-4 border border-neutral-300 border-x-transparent'>{item.quantity}</div>
-                      <span className='px-2 border cursor-pointer border-neutral-300'>+</span>
+                      <span
+                        className='px-2 border cursor-pointer border-neutral-300'
+                        onClick={() => increamentQuantity(item._id)}
+                      >
+                        +
+                      </span>
                     </div>
                     <span className='text-sm text-red-400'>
                       {item?.product?.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}

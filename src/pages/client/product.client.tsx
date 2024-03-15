@@ -22,7 +22,7 @@ const ProductPage = () => {
 
   const handleButton = () => {
     if (_id) {
-      dispatch(createCart({ product: _id }))
+      dispatch(createCart({ product: _id, quantity: 1 }))
     }
   }
 
