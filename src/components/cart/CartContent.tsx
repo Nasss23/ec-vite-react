@@ -22,43 +22,6 @@ const CartContent = () => {
   }
 
   const filterCart = carts.data.filter((cart) => cart.user === infoUser._id)
-  console.log('filterCart: ', filterCart)
-
-  function Cart() {
-    return (
-      <>
-        {/* {cart.map((item, index) => (
-          <div
-            className='flex justify-between py-2 border border-x-transparent border-t-transparent border-neutral-200'
-            key={item._id}
-          >
-            <div className='flex gap-2'>
-              <Link to={`/product/${item.product?._id}`} className='w-10 h-10 cursor-pointer'>
-                <img src={item.product?.image} alt='' className='object-cover rounded-md' />
-              </Link>
-              <h4 className='text-sm line-clamp-1 w-[250px]'>{item.product?.name}</h4>
-            </div>
-            <div className='flex flex-col  gap-3 w-[120px]'>
-              <div className='flex items-end gap-1'>
-                <span>Giá:</span>
-                <span className='font-medium text-blue-500 '>
-                  {item.product?.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
-                </span>
-              </div>
-              <div className='flex items-center justify-between'>
-                <span
-                  className='text-red-400 transition-all ease-linear cursor-pointer hover:text-red-500 decoration-slice hover:font-semibold'
-                  onClick={() => handleDeleteCart(item._id)}
-                >
-                  Xóa
-                </span>
-              </div>
-            </div>
-          </div>
-        ))} */}
-      </>
-    )
-  }
 
   if (!carts?.data)
     return (

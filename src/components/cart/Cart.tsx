@@ -2,19 +2,17 @@
 import { useAppDispatch, useAppSelector } from '@/redux/hook'
 import { fetchListCart } from '@/redux/slice/cart.slice'
 import { Popover } from 'antd'
-import { useEffect } from 'react'
+import { useEffect, useLayoutEffect } from 'react'
 import { BsCart2 } from 'react-icons/bs'
 import CartContent from './CartContent'
 
 const Cart = (props: any) => {
-  const { open, handleOpenChange } = props
-
   const dispatch = useAppDispatch()
   const infoUser = useAppSelector((state) => state.account.user)
   const carts = useAppSelector((state) => state.cart.listCart)
   const filterCart = carts.data.filter((cart) => cart.user === infoUser._id)
-  console.log('filterCart: ', filterCart)
-  useEffect(() => {
+
+  useLayoutEffect(() => {
     dispatch(fetchListCart())
   }, [dispatch])
 
@@ -22,10 +20,10 @@ const Cart = (props: any) => {
     <Popover
       content={<CartContent></CartContent>}
       title='Giỏ hàng'
-      trigger='click'
+      // trigger='click'
       placement='bottom'
-      open={open}
-      onOpenChange={handleOpenChange}
+      // open={open}
+      // onOpenChange={handleOpenChange}
     >
       <div className='flex items-center gap-2 '>
         <div className='flex items-center gap-2'>

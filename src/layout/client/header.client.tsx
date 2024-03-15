@@ -124,11 +124,10 @@ const Header = () => {
               </span>
               Favorites
             </div>
-
             {cart ? (
-              <Cart open={open} handleOpenChange={handleOpenChange}></Cart>
+              <Cart></Cart>
             ) : (
-              <div className='flex items-center gap-2 '>
+              <Link to={'/auth/login'} className='flex items-center gap-2 '>
                 <div className='flex items-center gap-2'>
                   <span className='text-xl'>
                     <BsCart2 />
@@ -136,7 +135,7 @@ const Header = () => {
                   Cart
                 </div>
                 <div className='flex items-center justify-center rounded-full w-7 h-7 bg-secondary-400'>0</div>
-              </div>
+              </Link>
             )}
             <div className='transition-all transform cursor-pointer hover:text-secondary-300 decoration-slice'>
               {isAuthenticated === false ? (
