@@ -64,7 +64,8 @@ const initialState: IState = {
           name: '',
           price: 0,
           image: ''
-        }
+        },
+        user: ''
       }
     ],
     meta: {

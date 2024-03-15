@@ -10,9 +10,10 @@ const Cart = (props: any) => {
   const { open, handleOpenChange } = props
 
   const dispatch = useAppDispatch()
-  // const cart = useAppSelector((state) => state.cart.listCart)
-  const users = useAppSelector((state) => state.users.listOneUser)
-  const cart = users.cart
+  const infoUser = useAppSelector((state) => state.account.user)
+  const carts = useAppSelector((state) => state.cart.listCart)
+  const filterCart = carts.data.filter((cart) => cart.user === infoUser._id)
+  console.log('filterCart: ', filterCart)
   useEffect(() => {
     dispatch(fetchListCart())
   }, [dispatch])
@@ -33,7 +34,9 @@ const Cart = (props: any) => {
           </span>
           Cart
         </div>
-        <div className='flex items-center justify-center rounded-full w-7 h-7 bg-secondary-400'>{cart?.length}</div>
+        <div className='flex items-center justify-center rounded-full w-7 h-7 bg-secondary-400'>
+          {filterCart?.length}
+        </div>
       </div>
     </Popover>
   )

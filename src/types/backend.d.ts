@@ -95,6 +95,7 @@ export interface ICart {
     image: string
     slug?: string
   }
+  user: string
 }
 
 export interface IUserCart {

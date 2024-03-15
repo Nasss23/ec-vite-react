@@ -10,7 +10,7 @@ const ProductPage = () => {
 
   const _id = productId
   const dispatch = useAppDispatch()
-  const product = useAppSelector((state) => state.product.listOneProduct)
+  const product = useAppSelector((state) => state.product.product)
   const isCreateSuccess = useAppSelector((state) => state.cart.isCreateSuccess)
 
   useEffect(() => {

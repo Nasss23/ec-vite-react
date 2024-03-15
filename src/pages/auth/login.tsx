@@ -52,6 +52,7 @@ const Login = () => {
         localStorage.setItem('access_token', res.data.access_token)
         localStorage.getItem('access_token')
         dispatch(setUserLoginInfo(res.data.user))
+        dispatch(fetchListCart())
         navigate('/')
       } else {
         console.log('Login failed.')
