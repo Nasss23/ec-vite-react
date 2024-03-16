@@ -5,7 +5,7 @@ import { Breadcrumb, Empty } from 'antd'
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
-const ProductPage = () => {
+const ProductDetailsPage = () => {
   const { productId } = useParams() // Lấy `productId` từ URL
 
   const _id = productId
@@ -72,4 +72,4 @@ const ProductPage = () => {
   )
 }
 
-export default ProductPage
+export default ProductDetailsPage

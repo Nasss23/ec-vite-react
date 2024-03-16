@@ -31,7 +31,7 @@ const ModalBrandCreate = (props: any) => {
 
   const value = categoryData.data
   const options = value.map((item) => ({
-    label: <span>{item.name}</span>,
+    label: <span>{item.description}</span>,
     value: item._id
   }))
 

@@ -3,12 +3,20 @@
 /* eslint-disable no-empty-pattern */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from '../../config/axios-customize'
-import { IMeta, IProduct } from '../../types/backend'
+import { IBrand, IMeta, IProduct } from '../../types/backend'
 
 export const fetchListProduct = createAsyncThunk('product/fetchProduct', async (product, thunkAPI) => {
   const res = await axios.get('/api/v1/product')
   return res.data
 })
+
+export const fetchListProductParams = createAsyncThunk(
+  'product/fetchListProductParams',
+  async (product: IProductState, thunkAPI) => {
+    const res = await axios.get('/api/v1/product', { params: { name: product.name } })
+    return res.data
+  }
+)
 
 export const fetchProductById = createAsyncThunk(
   'product/fetchProductById',
@@ -23,7 +31,7 @@ interface IProductState {
   name?: string
   price?: number
   image?: string
-  brand?: string
+  brand?: IBrand
   description?: string
   quantity?: number
   discount?: number
@@ -65,6 +73,10 @@ interface IState {
     data: IProduct[]
     meta: IMeta
   }
+  listProductParams: {
+    data: IProduct[]
+    meta: IMeta
+  }
   product: IProduct
   isCreateSuccess: boolean
   isUpdateSuccess: boolean
@@ -73,6 +85,35 @@ interface IState {
 
 const initialState: IState = {
   listProduct: {
+    data: [
+      {
+        _id: '',
+        name: '',
+        price: 0,
+        image: '',
+        brand: {
+          _id: '',
+          name: '',
+          description: '',
+          category: ''
+        },
+        description: '',
+        slug: '',
+        quantity: 0,
+        discount: 0,
+        sold: 0,
+        discountStartDate: null,
+        discountEndDate: null
+      }
+    ],
+    meta: {
+      current: null,
+      pageSize: null,
+      pages: 1,
+      total: 1
+    }
+  },
+  listProductParams: {
     data: [
       {
         _id: '',
@@ -160,6 +201,10 @@ export const productSlice = createSlice({
     builder.addCase(deleteProduct.fulfilled, (state, action) => {
       // Add user to the state array
       state.isDeleteSuccess = true
+    })
+    builder.addCase(fetchListProductParams.fulfilled, (state, action) => {
+      // Add user to the state array
+      state.listProductParams = action.payload
     })
   }
 })

@@ -1,12 +1,37 @@
-import React from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useEffect, useState } from 'react'
 import { Breadcrumb, Checkbox, Slider } from 'antd'
 import { BiCategory } from 'react-icons/bi'
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
 import { Link } from 'react-router-dom'
-import { Card } from '../../components/card'
 import { CiSearch } from 'react-icons/ci'
+import { Card } from '@/components/card'
+import { useAppDispatch, useAppSelector } from '@/redux/hook'
+import { fetchListProductParams } from '@/redux/slice/product.slice'
+import { IBrand } from '@/types/backend'
 
 const CategoriesPage = () => {
+  const dispatch = useAppDispatch()
+  const product = useAppSelector((state) => state.product.listProduct)
+  const brand = useAppSelector((state) => state.brand.listBrand)
+
+  const [selectedBrands, setSelectedBrands] = useState<string[]>([])
+  const handleBrandChange = (brand: IBrand) => {
+    if (selectedBrands.includes(brand.name)) {
+      setSelectedBrands(selectedBrands.filter((item) => item !== brand.name)) // Nếu brand đã được chọn, loại bỏ khỏi danh sách
+    } else {
+      setSelectedBrands([...selectedBrands, brand.name]) // Nếu brand chưa được chọn, thêm vào danh sách
+    }
+  }
+
+  // Tạo chuỗi productName từ danh sách các brand đã chọn
+  const productName = selectedBrands.join(' ')
+
+  useEffect(() => {
+    const res = dispatch(fetchListProductParams({ name: productName }))
+    console.log('resdât: ', res)
+  }, [])
+
   return (
     <div>
       <div className='py-6 content'>
@@ -54,8 +79,11 @@ const CategoriesPage = () => {
                 </button>
               </div>
               <div className='flex flex-col gap-1'>
-                <Checkbox>Apple</Checkbox>
-                <Checkbox>Samsung</Checkbox>
+                {brand.data?.map((item) => (
+                  <Checkbox key={item._id} onChange={() => handleBrandChange(item)}>
+                    {item.name}
+                  </Checkbox>
+                ))}
               </div>
             </div>
             <div className='flex flex-col gap-3 pb-5 border border-x-transparent border-t-transparent border-neutral-300'>
@@ -74,19 +102,17 @@ const CategoriesPage = () => {
           </div>
           <div className='col-span-10 pl-5'>
             <div className='grid grid-cols-4 gap-3'>
-              {Array(9)
-                .fill(0)
-                .map((item, index) => (
-                  <Card
-                    _id=''
-                    key={index}
-                    discount={40}
-                    title='Shark - Mens cabretta white golf glove'
-                    image='https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llaox2hzjanq75_tn'
-                    price={19}
-                    rate={4}
-                  ></Card>
-                ))}
+              {product.data.map((item, index) => (
+                <Card
+                  _id={item._id}
+                  path={item._id}
+                  key={item._id}
+                  discount={item.discount}
+                  title={item.name}
+                  image={item.image}
+                  price={item.price}
+                ></Card>
+              ))}
             </div>
           </div>
         </div>

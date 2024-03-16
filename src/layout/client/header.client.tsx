@@ -9,11 +9,12 @@ import { BsCart2 } from 'react-icons/bs'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../redux/hook'
 import { useEffect, useState } from 'react'
-import { Dropdown, Popover } from 'antd'
+import { Dropdown, Popover, Spin } from 'antd'
 import { callLogout } from '../../config/api'
 import { fetchListCart } from '@/redux/slice/cart.slice'
 import { Cart } from '@/components/cart'
 import { setLogoutAction } from '@/redux/auth/account.slice'
+import { fetchListProductParams } from '@/redux/slice/product.slice'
 
 const Header = () => {
   const navigate = useNavigate()
@@ -22,9 +23,19 @@ const Header = () => {
   const user = useAppSelector((state) => state.account.user)
   const cart = useAppSelector((state) => state.cart.listCart)
 
+  const product = useAppSelector((state) => state.product.listProductParams)
+
+  const [search, setSearch] = useState<string>('')
+
   useEffect(() => {
     dispatch(fetchListCart())
   }, [])
+
+  useEffect(() => {
+    if (search.trim() !== '') {
+      dispatch(fetchListProductParams({ name: search }))
+    }
+  }, [search, dispatch])
 
   const [openMangeAccount, setOpenManageAccount] = useState<boolean>(false)
 
@@ -60,15 +71,6 @@ const Header = () => {
       icon: <LogoutOutlined />
     }
   ]
-  const [open, setOpen] = useState(false)
-
-  const hide = () => {
-    setOpen(false)
-  }
-
-  const handleOpenChange = (newOpen: boolean) => {
-    setOpen(newOpen)
-  }
 
   return (
     <header className='mb-7'>
@@ -77,11 +79,39 @@ const Header = () => {
           <img srcSet='Logo.png 2x' alt='Logo' />
           <h1 className='text-[32px] font-bold leading-[20px]'>Luminae</h1>
         </Link>
-        <div className='flex items-center gap-3 px-3 py-3 border rounded border-neutral-200d'>
-          <input type='text' name='' className='w-[277px]' placeholder='Search product' />
-          <span className='text-xl'>
+        <div className='relative flex items-center gap-3 px-3 py-3 border rounded border-neutral-200d'>
+          <input
+            type='text'
+            value={search}
+            className='w-[277px]'
+            placeholder='Search product'
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <button className='text-xl'>
             <CiSearch />
-          </span>
+          </button>
+          {search && product.data ? (
+            <div className='absolute left-0 w-full p-4 space-y-2 bg-white border rounded top-14 border-neutral-300'>
+              {product.data.length > 0 ? (
+                <>
+                  {product.data.slice(0, 3).map((item) => (
+                    <Link to={`/product/${item._id}`} key={item._id} className='flex gap-5 py-2 '>
+                      <div className='w-10 h-10'>
+                        <img src={item.image} alt='' className='object-cover w-full h-full' />
+                      </div>
+                      <span>{item.name}</span>
+                    </Link>
+                  ))}
+                </>
+              ) : (
+                <div className='flex justify-center'>
+                  <Spin />
+                </div>
+              )}
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
         <div className='flex items-center gap-3 text-sm font-normal leading-5'>
           <span className='w-[96px]'>About us</span>

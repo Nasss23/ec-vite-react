@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useAppDispatch, useAppSelector } from '@/redux/hook'
-import { Card } from '../../components/card'
 import { useEffect } from 'react'
 import { fetchListProduct } from '@/redux/slice/product.slice'
 import { IProduct } from '@/types/backend'
-import { useParams } from 'react-router-dom'
+import { Card } from '@/components/card'
 
 interface IUser {
   _id: string
@@ -15,7 +14,6 @@ interface IUser {
 const HomePage = () => {
   const dispatch = useAppDispatch()
   const product = useAppSelector((state) => state.product.listProduct)
-  // console.log('product: ', product)
 
   useEffect(() => {
     dispatch(fetchListProduct())

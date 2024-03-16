@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useAppDispatch, useAppSelector } from '@/redux/hook'
-import { decrementCart, deleteCart, fetchListCart, incrementCart, updateCart } from '@/redux/slice/cart.slice'
+import { decrementCart, deleteCart, fetchListCart, incrementCart } from '@/redux/slice/cart.slice'
 import { Breadcrumb, Checkbox } from 'antd'
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import axios from '../../config/axios-customize'
 
 const CartPage = () => {
   const dispatch = useAppDispatch()
@@ -63,6 +62,7 @@ const CartPage = () => {
   const decrementQuantity = async (id: string) => {
     dispatch(decrementCart({ _id: id }))
   }
+
   return (
     <div className='space-y-5 content pb-7'>
       <div>

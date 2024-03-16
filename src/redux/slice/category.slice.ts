@@ -2,19 +2,33 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-empty-pattern */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { fetchCategory } from '../../config/api'
 import axios from '../../config/axios-customize'
 import { ICatagory, IMeta } from '../../types/backend'
 
-export const fetchListCategory = createAsyncThunk('category/fetchUser', async (categoryId, thunkAPI) => {
-  const res = await fetchCategory()
+interface IParams {
+  _id?: string
+  name?: string
+  description?: string
+}
+
+export const fetchListCategory = createAsyncThunk('category/fetchListCategory', async (categoryId, thunkAPI) => {
+  // Lấy trường name từ trạng thái Redux nếu có
+  const res = await axios.get('/api/v1/category') // Thêm tham số query string name vào yêu cầu axios
   return res.data
 })
 
+export const fetchListCategoryParams = createAsyncThunk(
+  'category/fetchListCategoryParams',
+  async (categoryId: ICategory, thunkAPI) => {
+    const res = await axios.get('/api/v1/category', { params: { name: categoryId.name } })
+    return res.data
+  }
+)
+
 interface ICategory {
   _id?: string
-  name: string
-  description: string
+  name?: string
+  description?: string
 }
 export const createACategory = createAsyncThunk('category/createACategory', async (createCate: ICategory, thunkAPI) => {
   const res = await axios.post('/api/v1/category', { ...createCate })
