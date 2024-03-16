@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-empty-pattern */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { callFetchAccount } from '../../config/api'
+import axios from '@/config/axios-customize'
 
 // First, create the thunk
 
 export const getAccount = createAsyncThunk('account/getAccount', async (payload, thunkAPI) => {
-  const res = await callFetchAccount()
+  const res = await axios.get('/api/v1/auth/account')
   return res.data
 })
 
@@ -43,7 +43,7 @@ const initialState: IState = {
 }
 
 export const accountSlice = createSlice({
-  name: 'user',
+  name: 'account',
   initialState,
   reducers: {
     setUserLoginInfo: (state, action) => {

@@ -73,7 +73,7 @@ const Header = () => {
   ]
 
   return (
-    <header className='mb-7'>
+    <header className=''>
       <div className='py-[28px] content flex items-center justify-between'>
         <Link to={'/'} className='flex items-center gap-[6px]'>
           <img srcSet='Logo.png 2x' alt='Logo' />
@@ -134,9 +134,9 @@ const Header = () => {
       <div className='py-5 bg-black'>
         <div className='flex items-center justify-between content'>
           <div className='flex items-center gap-[80px]'>
-            <Link to={'/categories'} className='flex items-center gap-1'>
+            <Link to={'/category'} className='flex items-center gap-1'>
               <IconCategory></IconCategory>
-              <span className='text-xl font-bold leading-5 text-white'>Category</span>
+              <span className='text-xl font-bold leading-5 text-white'>Danh mục</span>
             </Link>
             <div className='flex items-center gap-8 text-xs leading-5 text-white'>
               <span className='flex items-center gap-1 '>

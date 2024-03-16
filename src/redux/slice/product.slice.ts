@@ -28,7 +28,7 @@ export const fetchProductById = createAsyncThunk(
 
 interface IProductState {
   _id?: string
-  name?: string
+  name?: string | string[]
   price?: number
   image?: string
   brand?: IBrand

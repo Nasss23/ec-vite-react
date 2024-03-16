@@ -15,19 +15,10 @@ const CategoriesPage = () => {
   const product = useAppSelector((state) => state.product.listProduct)
   const brand = useAppSelector((state) => state.brand.listBrand)
 
-  const [selectedBrands, setSelectedBrands] = useState<string[]>([])
-  const handleBrandChange = (brand: IBrand) => {
-    if (selectedBrands.includes(brand.name)) {
-      setSelectedBrands(selectedBrands.filter((item) => item !== brand.name)) // Nếu brand đã được chọn, loại bỏ khỏi danh sách
-    } else {
-      setSelectedBrands([...selectedBrands, brand.name]) // Nếu brand chưa được chọn, thêm vào danh sách
-    }
-  }
-
   // Tạo chuỗi productName từ danh sách các brand đã chọn
-  const productName = selectedBrands.join(' ')
 
   useEffect(() => {
+    const productName = 'xiaomi'
     const res = dispatch(fetchListProductParams({ name: productName }))
     console.log('resdât: ', res)
   }, [])
@@ -79,11 +70,7 @@ const CategoriesPage = () => {
                 </button>
               </div>
               <div className='flex flex-col gap-1'>
-                {brand.data?.map((item) => (
-                  <Checkbox key={item._id} onChange={() => handleBrandChange(item)}>
-                    {item.name}
-                  </Checkbox>
-                ))}
+                {brand.data?.map((item) => <Checkbox key={item._id}>{item.name}</Checkbox>)}
               </div>
             </div>
             <div className='flex flex-col gap-3 pb-5 border border-x-transparent border-t-transparent border-neutral-300'>

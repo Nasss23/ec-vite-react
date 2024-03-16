@@ -7,9 +7,9 @@ import Auth from './layout/client/auth.client.tsx'
 import Register from './pages/auth/register.tsx'
 import PageNotFound from './pages/error/pageError.tsx'
 import HomePage from './pages/client/home.client.tsx'
-import ProductPage from './pages/client/product.client.tsx'
+import ProductDetailsPage from './pages/client/product.details.client.tsx'
 import CategoriesPage from './pages/client/categories.client.tsx'
-import ProductCategoryPage from './pages/client/category.client.tsx'
+import CategoryPage from './pages/client/category.client.tsx'
 import { useEffect } from 'react'
 import { useAppDispatch } from './redux/hook.ts'
 import { getAccount } from './redux/auth/account.slice.ts'
@@ -20,6 +20,7 @@ import BrandAdmin from './pages/admin/brand.admin.tsx'
 import ProductAdmin from './pages/admin/product.admin.tsx'
 import ProductCreateAdmin from './pages/admin/product/product.create.admin.tsx'
 import CartPage from './pages/client/cart.client.tsx'
+import CategoryDetailsPage from './pages/client/category.details.client.tsx'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -56,15 +57,23 @@ function App() {
         },
         {
           path: 'product',
-          element: <ProductCategoryPage></ProductCategoryPage>
+          element: <CategoryPage></CategoryPage>
         },
         {
           path: 'product/:productId',
-          element: <ProductPage></ProductPage>
+          element: <ProductDetailsPage></ProductDetailsPage>
         },
         {
           path: 'categories',
           element: <CategoriesPage></CategoriesPage>
+        },
+        {
+          path: 'category',
+          element: <CategoryPage></CategoryPage>
+        },
+        {
+          path: 'category/:id',
+          element: <CategoryDetailsPage></CategoryDetailsPage>
         },
         {
           path: 'cart',
