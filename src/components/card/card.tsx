@@ -10,12 +10,13 @@ interface IProps {
   title: string
   rate?: number
   price: number
-  discount: number
+  discount?: number
   path?: string
+  sold?: number
 }
 
 const Card: React.FC<IProps> = (props: IProps) => {
-  const { title = '', discount = 0, image = '', price, rate = 3, path, _id } = props
+  const { title = '', discount = 0, image = '', price, rate = 3, path, _id, sold } = props
 
   const dispatch = useAppDispatch()
   const isCreateSuccess = useAppSelector((state) => state.cart.isCreateSuccess)
@@ -41,11 +42,18 @@ const Card: React.FC<IProps> = (props: IProps) => {
         <div className=''>
           <p className='text-base leading-[22px] text-[#141718] font-semibold line-clamp-2'>{title}</p>
           {/* <Rate className='text-sm' value={rate} /> */}
-          <div className='flex items-center gap-2'>
-            <span className='text-base leading-[26px] text-[#141718] font-semibold '>
-              {price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
-            </span>
-            <span className='text-sm line-through leading-[26px] text-red-400 font-medium '>{discount}%</span>
+          <div className='flex items-center justify-between'>
+            <div className='flex items-center gap-2'>
+              <span className='text-base leading-[26px] text-[#141718] font-semibold '>
+                {price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+              </span>
+              <span className='text-sm line-through leading-[26px] text-red-400 font-medium '>{discount}%</span>
+            </div>
+            {sold && sold > 0 ? (
+              <span className='text-xs text-gray-300'>Đã bán {sold}</span>
+            ) : (
+              <span className='text-xs text-gray-300'>Đã bán 0</span>
+            )}
           </div>
         </div>
       </Link>

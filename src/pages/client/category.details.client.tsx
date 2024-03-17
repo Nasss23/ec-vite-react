@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hook'
 import { fetchListBrand } from '@/redux/slice/brand.slice'
 import { fetchListCategory } from '@/redux/slice/category.slice'
 import { fetchListProduct, fetchListProductParams } from '@/redux/slice/product.slice'
-import { Breadcrumb, Empty } from 'antd'
+import { Breadcrumb, Empty, Skeleton } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
@@ -60,17 +60,29 @@ const CategoryDetailsPage = () => {
             />
           ))}
         </div>
-        <div className='flex items-center gap-2'>
-          {resBrand.map((item, index) => (
-            <span
-              className={`px-5 py-2 text-xs font-medium uppercase border rounded-full cursor-pointer border-neutral-300 ${selectedBrands.includes(item.name) ? 'bg-blue-500 text-white' : ''}`}
-              key={item._id}
-              onClick={() => handleBrandClick(item.name)}
-            >
-              {item.description}
-            </span>
-          ))}
-        </div>
+        {resBrand.length > 0 ? (
+          <>
+            <div className='flex items-center gap-2'>
+              {resBrand.map((item, index) => (
+                <span
+                  className={`px-5 py-2 text-xs font-medium uppercase border rounded-full cursor-pointer border-neutral-300 ${selectedBrands.includes(item.name) ? 'bg-blue-500 text-white' : ''}`}
+                  key={item._id}
+                  onClick={() => handleBrandClick(item.name)}
+                >
+                  {item.description}
+                </span>
+              ))}
+            </div>
+          </>
+        ) : (
+          <div className='flex items-center gap-2'>
+            {Array(5)
+              .fill(0)
+              .map((item, index) => (
+                <Skeleton.Button active style={{}} size='large' key={index} />
+              ))}
+          </div>
+        )}
       </div>
       <div className='p-1 bg-gray-100 rounded-md'>
         {resProduct.length > 0 ? (
@@ -84,12 +96,27 @@ const CategoryDetailsPage = () => {
                 title={item.name}
                 image={item.image}
                 price={item.price}
+                sold={item.sold}
               ></Card>
             ))}
           </div>
         ) : (
-          <div className='flex items-center justify-center w-full h-[500px]'>
-            <Empty />
+          <div className='flex items-center justify-center w-full '>
+            <div className='grid w-full grid-cols-5 gap-1'>
+              {Array(5)
+                .fill(0)
+                .map((item, index) => (
+                  <div className='flex flex-col gap-1' key={index}>
+                    <Skeleton.Button active style={{ height: 240 }} block size='large' />
+                    <Skeleton.Button active style={{}} block size='large' />
+                    <div className='flex gap-1'>
+                      <Skeleton.Button active style={{}} block size='small' />
+                      <Skeleton.Button active style={{}} block size='small' />
+                    </div>
+                    <Skeleton.Button active style={{}} block size='large' />
+                  </div>
+                ))}
+            </div>
           </div>
         )}
       </div>

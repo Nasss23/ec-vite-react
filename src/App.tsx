@@ -8,7 +8,6 @@ import Register from './pages/auth/register.tsx'
 import PageNotFound from './pages/error/pageError.tsx'
 import HomePage from './pages/client/home.client.tsx'
 import ProductDetailsPage from './pages/client/product.details.client.tsx'
-import CategoriesPage from './pages/client/categories.client.tsx'
 import CategoryPage from './pages/client/category.client.tsx'
 import { useEffect } from 'react'
 import { useAppDispatch } from './redux/hook.ts'
@@ -21,6 +20,7 @@ import ProductAdmin from './pages/admin/product.admin.tsx'
 import ProductCreateAdmin from './pages/admin/product/product.create.admin.tsx'
 import CartPage from './pages/client/cart.client.tsx'
 import CategoryDetailsPage from './pages/client/category.details.client.tsx'
+import PaymentPage from './pages/client/payment.client.tsx'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -64,10 +64,6 @@ function App() {
           element: <ProductDetailsPage></ProductDetailsPage>
         },
         {
-          path: 'categories',
-          element: <CategoriesPage></CategoriesPage>
-        },
-        {
           path: 'category',
           element: <CategoryPage></CategoryPage>
         },
@@ -78,6 +74,10 @@ function App() {
         {
           path: 'cart',
           element: <CartPage></CartPage>
+        },
+        {
+          path: 'payment',
+          element: <PaymentPage></PaymentPage>
         }
       ]
     },

@@ -36,6 +36,7 @@ const HomePage = () => {
               title={item.name}
               image={item.image}
               price={item.price}
+              sold={item.sold}
             ></Card>
           ))}
         </div>

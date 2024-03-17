@@ -3,15 +3,18 @@ import { useAppDispatch, useAppSelector } from '@/redux/hook'
 import { decrementCart, deleteCart, fetchListCart, incrementCart } from '@/redux/slice/cart.slice'
 import { Breadcrumb, Checkbox } from 'antd'
 import { useLayoutEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const CartPage = () => {
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const infoUser = useAppSelector((state) => state.account.user)
   const carts = useAppSelector((state) => state.cart.listCart)
   const filterCart = carts.data.filter((cart) => cart.user === infoUser?._id)
 
   const [selectedItems, setSelectedItems] = useState<string[]>([])
+  console.log('selectedItems: ', selectedItems)
+
   const [selectAll, setSelectAll] = useState<boolean>(false)
 
   useLayoutEffect(() => {
@@ -61,6 +64,14 @@ const CartPage = () => {
   }
   const decrementQuantity = async (id: string) => {
     dispatch(decrementCart({ _id: id }))
+  }
+
+  const buy = () => {
+    // Lưu selectedItems vào localStorage
+    localStorage.setItem('selectedItems', JSON.stringify(selectedItems))
+    navigate('/payment')
+    // Chuyển hướng đến trang khác, có thể làm bằng cách sử dụng React Router hoặc các phương pháp chuyển hướng khác
+    // Ví dụ: history.push('/path-to-another-page');
   }
 
   return (
@@ -147,7 +158,13 @@ const CartPage = () => {
             <div className='text-xl font-medium text-blue-500'>
               {totalPrice().toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
             </div>
-            <span className='flex px-16 py-3 font-medium text-white bg-blue-500 rounded cursor-pointer'>Mua</span>
+            <button
+              className={`${selectedItems.length > 0 ? 'flex px-16 py-3 font-medium text-white bg-blue-500 rounded cursor-pointer' : 'flex px-16 py-3 font-medium text-white bg-gray-500 rounded cursor-pointer'}`}
+              onClick={() => buy()}
+              disabled={selectedItems.length > 0 ? false : true}
+            >
+              Mua
+            </button>
           </div>
         </div>
       </div>
