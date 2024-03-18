@@ -21,7 +21,7 @@ const Cart = () => {
       <Popover
         content={<CartContent></CartContent>}
         title='Giỏ hàng'
-        trigger='click'
+        // trigger='click'
         placement='bottom'
         // open={open}
         // onOpenChange={handleOpenChange}

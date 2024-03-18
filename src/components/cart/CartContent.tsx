@@ -28,7 +28,7 @@ const CartContent = () => {
       </div>
     )
   return (
-    <div className='lg:w-[450px] flex flex-col gap-5 w-[350px]'>
+    <div className='lg:w-[450px] flex flex-col gap-5 w-[320px]'>
       <div className='flex flex-col '>
         {filterCart.map((item) => (
           <div
