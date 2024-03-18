@@ -17,26 +17,28 @@ const Cart = () => {
   }, [dispatch])
 
   return (
-    <Popover
-      content={<CartContent></CartContent>}
-      title='Giỏ hàng'
-      // trigger='click'
-      placement='bottom'
-      // open={open}
-      // onOpenChange={handleOpenChange}
-    >
-      <div className='flex items-center gap-2 '>
-        <div className='flex items-center gap-2'>
-          <span className='text-xl'>
-            <BsCart2 />
-          </span>
-          <span className='hidden lg:block'>Cart</span>
+    <div>
+      <Popover
+        content={<CartContent></CartContent>}
+        title='Giỏ hàng'
+        trigger='click'
+        placement='bottom'
+        // open={open}
+        // onOpenChange={handleOpenChange}
+      >
+        <div className='flex items-center gap-2 '>
+          <div className='flex items-center gap-2'>
+            <span className='text-xl'>
+              <BsCart2 />
+            </span>
+            <span className='hidden lg:block'>Cart</span>
+          </div>
+          <div className='flex items-center justify-center text-white rounded-full w-7 h-7 bg-secondary-400'>
+            {filterCart?.length}
+          </div>
         </div>
-        <div className='flex items-center justify-center text-white rounded-full w-7 h-7 bg-secondary-400'>
-          {filterCart?.length}
-        </div>
-      </div>
-    </Popover>
+      </Popover>
+    </div>
   )
 }
 

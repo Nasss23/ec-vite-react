@@ -28,19 +28,18 @@ const CartContent = () => {
       </div>
     )
   return (
-    <div className='w-[400px] flex flex-col gap-5'>
+    <div className='lg:w-[450px] flex flex-col gap-5 w-[350px]'>
       <div className='flex flex-col '>
-        {/* <Cart></Cart> */}
         {filterCart.map((item) => (
           <div
-            className='flex justify-between py-2 border border-x-transparent border-t-transparent border-neutral-200'
+            className='flex justify-between gap-4 py-2 border border-x-transparent border-t-transparent border-neutral-200'
             key={item._id}
           >
             <div className='flex gap-2'>
               <Link to={`/product/${item.product?._id}`} className='w-10 h-10 cursor-pointer'>
                 <img src={item.product?.image} alt='' className='object-cover rounded-md' />
               </Link>
-              <h4 className='text-sm line-clamp-1 w-[250px]'>{item.product?.name}</h4>
+              <h4 className='text-sm line-clamp-1 lg:w-[250px]'>{item.product?.name}</h4>
             </div>
             <div className='flex flex-col  gap-3 w-[120px]'>
               <div className='flex items-end gap-1'>
