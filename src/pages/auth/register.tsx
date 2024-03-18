@@ -26,8 +26,11 @@ const schema = yup.object({
 const Register = () => {
   const navigate = useNavigate()
   const [email, setEmail] = useState<string>('')
+  console.log('email: ', email)
   const [password, setPassword] = useState<string>('')
+  console.log('password: ', password)
   const [name, setName] = useState<string>('')
+  console.log('name: ', name)
   const {
     control,
     handleSubmit,

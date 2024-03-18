@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { CiSearch } from 'react-icons/ci'
-import { ContactsOutlined, DashOutlined, LogoutOutlined } from '@ant-design/icons'
-import { FaBars, FaFacebookF, FaRegHeart, FaTelegramPlane } from 'react-icons/fa'
+import { ContactsOutlined, LogoutOutlined } from '@ant-design/icons'
+import { FaFacebookF, FaRegHeart, FaTelegramPlane } from 'react-icons/fa'
 import { PiInstagramLogoFill } from 'react-icons/pi'
 import { IconCategory } from '../../assets/icons'
 import { IoIosArrowDown } from 'react-icons/io'
@@ -39,6 +39,7 @@ const Header = () => {
   }, [search, dispatch])
 
   const [openMangeAccount, setOpenManageAccount] = useState<boolean>(false)
+  console.log('openMangeAccount: ', openMangeAccount)
 
   const handleLogout = async () => {
     const res = await callLogout()
