@@ -7,8 +7,8 @@ import { Input, InputPassword } from '../../components/input'
 import { Button } from '../../components/button'
 import { FcGoogle } from 'react-icons/fc'
 import { Link, useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import { useAppDispatch, useAppSelector } from '../../redux/hook'
+import { useState } from 'react'
+import { useAppDispatch } from '../../redux/hook'
 import { registerAuth } from '../../redux/auth/auth.slice'
 import { toast } from 'react-toastify'
 interface IForm {
@@ -26,12 +26,15 @@ const schema = yup.object({
 const Register = () => {
   const navigate = useNavigate()
   const [email, setEmail] = useState<string>('')
+  console.log('email: ', email)
   const [password, setPassword] = useState<string>('')
+  console.log('password: ', password)
   const [name, setName] = useState<string>('')
+  console.log('name: ', name)
   const {
     control,
     handleSubmit,
-    formState: { errors, disabled }
+    formState: { errors }
   } = useForm<IForm>({
     mode: 'onSubmit',
     resolver: yupResolver(schema)

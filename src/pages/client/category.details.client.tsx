@@ -4,8 +4,8 @@ import { useAppDispatch, useAppSelector } from '@/redux/hook'
 import { fetchListBrand } from '@/redux/slice/brand.slice'
 import { fetchListCategory } from '@/redux/slice/category.slice'
 import { fetchListProduct, fetchListProductParams } from '@/redux/slice/product.slice'
-import { Breadcrumb, Empty, Skeleton } from 'antd'
-import React, { useEffect, useState } from 'react'
+import { Breadcrumb, Skeleton } from 'antd'
+import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
 const CategoryDetailsPage = () => {
@@ -63,7 +63,7 @@ const CategoryDetailsPage = () => {
         {resBrand.length > 0 ? (
           <>
             <div className='flex items-center gap-2'>
-              {resBrand.map((item, index) => (
+              {resBrand.map((item, _index) => (
                 <span
                   className={`px-5 py-2 text-xs font-medium uppercase border rounded-full cursor-pointer border-neutral-300 ${selectedBrands.includes(item.name) ? 'bg-blue-500 text-white' : ''}`}
                   key={item._id}
@@ -78,7 +78,7 @@ const CategoryDetailsPage = () => {
           <div className='flex items-center gap-2'>
             {Array(5)
               .fill(0)
-              .map((item, index) => (
+              .map((_item, index) => (
                 <Skeleton.Button active style={{}} size='large' key={index} />
               ))}
           </div>
@@ -87,7 +87,7 @@ const CategoryDetailsPage = () => {
       <div className='p-1 bg-gray-100 rounded-md'>
         {resProduct.length > 0 ? (
           <div className='grid grid-cols-5 gap-1'>
-            {resProduct.map((item, index) => (
+            {resProduct.map((item, _index) => (
               <Card
                 _id={item._id}
                 path={item._id}
@@ -105,7 +105,7 @@ const CategoryDetailsPage = () => {
             <div className='grid w-full grid-cols-5 gap-1'>
               {Array(5)
                 .fill(0)
-                .map((item, index) => (
+                .map((_item, index) => (
                   <div className='flex flex-col gap-1' key={index}>
                     <Skeleton.Button active style={{ height: 240 }} block size='large' />
                     <Skeleton.Button active style={{}} block size='large' />

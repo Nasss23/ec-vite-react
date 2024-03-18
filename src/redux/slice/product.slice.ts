@@ -5,14 +5,14 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from '../../config/axios-customize'
 import { IBrand, IMeta, IProduct } from '../../types/backend'
 
-export const fetchListProduct = createAsyncThunk('product/fetchProduct', async (product, thunkAPI) => {
+export const fetchListProduct = createAsyncThunk('product/fetchProduct', async (_product, _thunkAPI) => {
   const res = await axios.get('/api/v1/product')
   return res.data
 })
 
 export const fetchListProductParams = createAsyncThunk(
   'product/fetchListProductParams',
-  async (product: IProductState, thunkAPI) => {
+  async (product: IProductState, _thunkAPI) => {
     const res = await axios.get('/api/v1/product', { params: { name: product.name } })
     return res.data
   }
@@ -20,7 +20,7 @@ export const fetchListProductParams = createAsyncThunk(
 
 export const fetchProductById = createAsyncThunk(
   'product/fetchProductById',
-  async (product: IProductState, thunkAPI) => {
+  async (product: IProductState, _thunkAPI) => {
     const res = await axios.get(`/api/v1/product/${product._id}`)
     return res.data
   }
@@ -190,15 +190,15 @@ export const productSlice = createSlice({
       // Add user to the state array
       state.product = action.payload
     })
-    builder.addCase(createProduct.fulfilled, (state, action) => {
+    builder.addCase(createProduct.fulfilled, (state, _action) => {
       // Add user to the state array
       state.isCreateSuccess = true
     })
-    builder.addCase(updateProduct.fulfilled, (state, action) => {
+    builder.addCase(updateProduct.fulfilled, (state, _action) => {
       // Add user to the state array
       state.isUpdateSuccess = true
     })
-    builder.addCase(deleteProduct.fulfilled, (state, action) => {
+    builder.addCase(deleteProduct.fulfilled, (state, _action) => {
       // Add user to the state array
       state.isDeleteSuccess = true
     })

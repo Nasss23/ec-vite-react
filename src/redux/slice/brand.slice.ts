@@ -5,7 +5,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from '../../config/axios-customize'
 import { IBrand, IMeta } from '../../types/backend'
 
-export const fetchListBrand = createAsyncThunk('brand/fetchUser', async (brand, thunkAPI) => {
+export const fetchListBrand = createAsyncThunk('brand/fetchUser', async (_brand, _thunkAPI) => {
   const res = await axios.get('/api/v1/brand')
   return res.data
 })
@@ -100,15 +100,15 @@ export const brandSlice = createSlice({
       // Add user to the state array
       state.listBrand = action.payload
     })
-    builder.addCase(createABrand.fulfilled, (state, action) => {
+    builder.addCase(createABrand.fulfilled, (state, _action) => {
       // Add user to the state array
       state.isCreateSuccess = true
     })
-    builder.addCase(updateABrand.fulfilled, (state, action) => {
+    builder.addCase(updateABrand.fulfilled, (state, _action) => {
       // Add user to the state array
       state.isUpdateSuccess = true
     })
-    builder.addCase(deleteABrand.fulfilled, (state, action) => {
+    builder.addCase(deleteABrand.fulfilled, (state, _action) => {
       // Add user to the state array
       state.isDeleteSuccess = true
     })

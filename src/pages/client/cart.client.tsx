@@ -95,7 +95,7 @@ const CartPage = () => {
           </Checkbox>
         </div>
         <div className='flex flex-col gap-3'>
-          {filterCart.map((item, index) => (
+          {filterCart.map((item) => (
             <div className='p-4 border rounded-md border-neutral-400' key={item._id}>
               <div className='flex items-center justify-between'>
                 <div className='flex items-center gap-4'>

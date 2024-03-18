@@ -1,8 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useAppDispatch, useAppSelector } from '@/redux/hook'
 import { createCart, resetCreateCart } from '@/redux/slice/cart.slice'
-import { Rate } from 'antd'
-import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 interface IProps {
   _id: string
@@ -16,7 +16,7 @@ interface IProps {
 }
 
 const Card: React.FC<IProps> = (props: IProps) => {
-  const { title = '', discount = 0, image = '', price, rate = 3, path, _id, sold } = props
+  const { title = '', discount = 0, image = '', price, path, _id, sold } = props
 
   const dispatch = useAppDispatch()
   const isCreateSuccess = useAppSelector((state) => state.cart.isCreateSuccess)

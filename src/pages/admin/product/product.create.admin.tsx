@@ -1,14 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Label } from '@/components/label'
 import ReactQuill from 'react-quill'
-import { useAppDispatch, useAppSelector } from '@/redux/hook'
+import { useAppSelector } from '@/redux/hook'
 import { Breadcrumb, Button, DatePicker, Input, InputNumber, Select } from 'antd'
-import React from 'react'
 import { Link } from 'react-router-dom'
-const { RangePicker } = DatePicker
 
 const ProductCreateAdmin = () => {
-  const dispatch = useAppDispatch()
+  // const dispatch = useAppDispatch()
   const brand = useAppSelector((state) => state.brand.listBrand)
   console.log('brand: ', brand)
 
@@ -18,7 +16,7 @@ const ProductCreateAdmin = () => {
     value: item._id
   }))
 
-  const handleBrandChange = (category: any) => {}
+  const handleBrandChange = (_category: any) => {}
 
   return (
     <div className='space-y-3'>

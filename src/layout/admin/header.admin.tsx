@@ -1,4 +1,4 @@
-import { Dropdown, Layout, theme } from 'antd'
+import { Dropdown } from 'antd'
 import { useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../redux/hook'
 import { callLogout } from '../../config/api'
@@ -6,13 +6,13 @@ import { setLogoutAction } from '../../redux/auth/account.slice'
 import { Link, useNavigate } from 'react-router-dom'
 import { ContactsOutlined, LogoutOutlined } from '@ant-design/icons'
 import { IoPersonOutline } from 'react-icons/io5'
-const { Header } = Layout
 const LayoutHeaderAdmin = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const isAuthenticated = useAppSelector((state) => state.account.isAuthenticated)
   const user = useAppSelector((state) => state.account.user)
   const [openMangeAccount, setOpenManageAccount] = useState<boolean>(false)
+  console.log('openMangeAccount: ', openMangeAccount)
 
   const handleLogout = async () => {
     const res = await callLogout()
@@ -21,10 +21,6 @@ const LayoutHeaderAdmin = () => {
       navigate('/')
     }
   }
-
-  const {
-    token: { colorBgContainer }
-  } = theme.useToken()
 
   const itemsDropdown = [
     {

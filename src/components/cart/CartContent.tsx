@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useAppDispatch, useAppSelector } from '@/redux/hook'
 import { deleteCart, fetchListCart } from '@/redux/slice/cart.slice'
-import { fetchUserById } from '@/redux/slice/user.slice'
-import { ICart } from '@/types/backend'
 import { Empty } from 'antd'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
@@ -33,7 +31,7 @@ const CartContent = () => {
     <div className='w-[400px] flex flex-col gap-5'>
       <div className='flex flex-col '>
         {/* <Cart></Cart> */}
-        {filterCart.map((item, index) => (
+        {filterCart.map((item) => (
           <div
             className='flex justify-between py-2 border border-x-transparent border-t-transparent border-neutral-200'
             key={item._id}

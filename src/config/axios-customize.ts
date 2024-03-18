@@ -4,7 +4,8 @@ import { store } from '../redux/store'
 import { setRefreshTokenAction } from '../redux/auth/account.slice'
 
 const instance = axiosClient.create({
-  baseURL: 'http://localhost:8000',
+  baseURL: import.meta.env.VITE_BACKEND_URL as string,
+  // baseURL: 'http://localhost:8080',
   withCredentials: true
 })
 

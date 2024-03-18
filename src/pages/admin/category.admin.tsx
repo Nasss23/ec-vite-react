@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../redux/hook'
 
 import Swal from 'sweetalert2'
-import { ICategory } from '../../types/backend'
+import { ICatagory } from '@/types/backend'
 import ModalCategoryCreate from '../../components/modal/category/category.create.modal.admin'
 import ModalCategoryUpdate from '../../components/modal/category/category.update.modal.admin'
 import { deleteACategory, fetchListCategory } from '../../redux/slice/category.slice'
@@ -83,7 +83,7 @@ const CategoryAdmin = () => {
               </tr>
             </thead>
             <tbody>
-              {category?.data.map((item: ICategory, index: number) => (
+              {category?.data.map((item: ICatagory, index: number) => (
                 <tr
                   className='transition-all ease-linear bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 decoration-slice'
                   key={item._id}

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useAppDispatch, useAppSelector } from '@/redux/hook'
 import { fetchListCategory } from '@/redux/slice/category.slice'
 import { ICatagory } from '@/types/backend'
@@ -30,7 +31,7 @@ const CategoryPage = () => {
       </div>
       <div>
         <div className='flex items-center gap-2'>
-          {category.data.map((item: ICatagory, index) => (
+          {category.data.map((item: ICatagory) => (
             <Link
               to={`/category/${item._id}`}
               className='px-5 py-2 text-xs font-medium uppercase border rounded-full cursor-pointer border-neutral-300'

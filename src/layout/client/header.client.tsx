@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { CiSearch } from 'react-icons/ci'
 import { ContactsOutlined, DashOutlined, LogoutOutlined } from '@ant-design/icons'
 import { FaFacebookF, FaRegHeart, FaTelegramPlane } from 'react-icons/fa'
@@ -9,7 +10,7 @@ import { BsCart2 } from 'react-icons/bs'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../redux/hook'
 import { useEffect, useState } from 'react'
-import { Dropdown, Popover, Spin } from 'antd'
+import { Dropdown, Spin } from 'antd'
 import { callLogout } from '../../config/api'
 import { fetchListCart } from '@/redux/slice/cart.slice'
 import { Cart } from '@/components/cart'
@@ -38,6 +39,7 @@ const Header = () => {
   }, [search, dispatch])
 
   const [openMangeAccount, setOpenManageAccount] = useState<boolean>(false)
+  console.log('openMangeAccount: ', openMangeAccount)
 
   const handleLogout = async () => {
     const res = await callLogout()

@@ -6,7 +6,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from '../../config/axios-customize'
 import { ICart, IMeta } from '../../types/backend'
 
-export const fetchListCart = createAsyncThunk('cart/fetchCart', async (product, thunkAPI) => {
+export const fetchListCart = createAsyncThunk('cart/fetchCart', async (_product, _thunkAPI) => {
   const res = await axios.get('/api/v1/carts')
   return res.data
 })
@@ -137,15 +137,15 @@ export const cartSlice = createSlice({
       // Add user to the state array
       state.listCart = action.payload
     })
-    builder.addCase(createCart.fulfilled, (state, action) => {
+    builder.addCase(createCart.fulfilled, (state, _action) => {
       // Add user to the state array
       state.isCreateSuccess = true
     })
-    builder.addCase(updateCart.fulfilled, (state, action) => {
+    builder.addCase(updateCart.fulfilled, (state, _action) => {
       // Add user to the state array
       state.isUpdateSuccess = true
     })
-    builder.addCase(deleteCart.fulfilled, (state, action) => {
+    builder.addCase(deleteCart.fulfilled, (state, _action) => {
       // Add user to the state array
       state.isDeleteSuccess = true
     })

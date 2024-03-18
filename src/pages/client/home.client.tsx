@@ -1,15 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useAppDispatch, useAppSelector } from '@/redux/hook'
 import { useEffect } from 'react'
 import { fetchListProduct } from '@/redux/slice/product.slice'
 import { IProduct } from '@/types/backend'
 import { Card } from '@/components/card'
-
-interface IUser {
-  _id: string
-  name: string
-  email: string
-}
 
 const HomePage = () => {
   const dispatch = useAppDispatch()
@@ -27,7 +22,7 @@ const HomePage = () => {
           <span className='text-sm font-medium'>View all</span>
         </div>
         <div className='grid grid-cols-5 gap-1'>
-          {product?.data?.map((item: IProduct, index) => (
+          {product?.data?.map((item: IProduct, _index: number) => (
             <Card
               path={item._id}
               _id={item._id}

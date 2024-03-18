@@ -5,13 +5,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from '../../config/axios-customize'
 import { ICatagory, IMeta } from '../../types/backend'
 
-interface IParams {
-  _id?: string
-  name?: string
-  description?: string
-}
-
-export const fetchListCategory = createAsyncThunk('category/fetchListCategory', async (categoryId, thunkAPI) => {
+export const fetchListCategory = createAsyncThunk('category/fetchListCategory', async (_categoryId, _thunkAPI) => {
   // Lấy trường name từ trạng thái Redux nếu có
   const res = await axios.get('/api/v1/category') // Thêm tham số query string name vào yêu cầu axios
   return res.data
@@ -19,7 +13,7 @@ export const fetchListCategory = createAsyncThunk('category/fetchListCategory', 
 
 export const fetchListCategoryParams = createAsyncThunk(
   'category/fetchListCategoryParams',
-  async (categoryId: ICategory, thunkAPI) => {
+  async (categoryId: ICategory, _thunkAPI) => {
     const res = await axios.get('/api/v1/category', { params: { name: categoryId.name } })
     return res.data
   }
@@ -115,15 +109,15 @@ export const categorySlice = createSlice({
       // Add user to the state array
       state.listCategory = action.payload
     })
-    builder.addCase(createACategory.fulfilled, (state, action) => {
+    builder.addCase(createACategory.fulfilled, (state, _action) => {
       // Add user to the state array
       state.isCreateSuccess = true
     })
-    builder.addCase(updateACategory.fulfilled, (state, action) => {
+    builder.addCase(updateACategory.fulfilled, (state, _action) => {
       // Add user to the state array
       state.isUpdateSuccess = true
     })
-    builder.addCase(deleteACategory.fulfilled, (state, action) => {
+    builder.addCase(deleteACategory.fulfilled, (state, _action) => {
       // Add user to the state array
       state.isDeleteSuccess = true
     })

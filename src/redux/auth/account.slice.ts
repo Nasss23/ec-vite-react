@@ -5,7 +5,7 @@ import axios from '@/config/axios-customize'
 
 // First, create the thunk
 
-export const getAccount = createAsyncThunk('account/getAccount', async (payload, thunkAPI) => {
+export const getAccount = createAsyncThunk('account/getAccount', async (_payload, _thunkAPI) => {
   const res = await axios.get('/api/v1/auth/account')
   return res.data
 })
@@ -54,7 +54,7 @@ export const accountSlice = createSlice({
       state.user.name = action.payload.name
       state.user.role = action?.payload?.role
     },
-    setLogoutAction: (state, action) => {
+    setLogoutAction: (state, _action) => {
       localStorage.removeItem('access_token')
       state.isAuthenticated = false
       state.user = {

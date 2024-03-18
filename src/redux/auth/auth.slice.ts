@@ -10,7 +10,7 @@ interface IUser {
 }
 
 // First, create the thunk
-export const fetchListUser = createAsyncThunk('users/fetchUser', async (userId, thunkAPI) => {
+export const fetchListUser = createAsyncThunk('users/fetchUser', async (_userId, _thunkAPI) => {
   const res = await axios.get('http://localhost:8000/api/v1/users')
   return res.data
 })
@@ -70,7 +70,7 @@ export const authSlice = createSlice({
       // Add user to the state array
       state.listUser = action.payload
     })
-    builder.addCase(registerAuth.fulfilled, (state, action) => {
+    builder.addCase(registerAuth.fulfilled, (state, _action) => {
       // Add user to the state array
       state.isCreateSuccess = true
     })

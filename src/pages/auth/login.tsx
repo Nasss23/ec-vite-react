@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react'
 import { setUserLoginInfo } from '../../redux/auth/account.slice'
 import { loginAuth } from '../../config/api'
 import { fetchListCart } from '@/redux/slice/cart.slice'
-import { useAppDispatch, useAppSelector } from '@/redux/hook'
+import { useAppDispatch } from '@/redux/hook'
 
 interface IForm {
   username: string
@@ -29,15 +29,16 @@ const Login = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors, disabled }
+    formState: { errors }
   } = useForm<IForm>({
-    mode: 'onSubmit'
-    // resolver: yupResolver(schema),
+    mode: 'onSubmit',
+    resolver: yupResolver(schema)
   })
 
   const [username, setUsername] = useState<string>('')
+  console.log('username: ', username)
   const [password, setPassword] = useState<string>('')
-  const cart = useAppSelector((state) => state.cart.listCart)
+  console.log('password: ', password)
 
   useEffect(() => {
     dispatch(fetchListCart())

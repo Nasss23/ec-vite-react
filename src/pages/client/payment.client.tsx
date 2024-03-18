@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useAppDispatch, useAppSelector } from '@/redux/hook'
 import { fetchListCart } from '@/redux/slice/cart.slice'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const PaymentPage = () => {
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const cart = useAppSelector((state) => state.cart.listCart)
   const account = useAppSelector((state) => state.account.user)
@@ -41,6 +43,11 @@ const PaymentPage = () => {
       return total
     }, 0)
   }
+
+  const payment = () => {
+    localStorage.removeItem('selectedItems')
+    navigate('/')
+  }
   return (
     <div className='space-y-3 content'>
       <div className='flex flex-col gap-1 p-5 rounded-lg bg-neutral-200'>
@@ -59,7 +66,7 @@ const PaymentPage = () => {
           <div className='col-span-2 text-right'>Thành tiền</div>
         </div>
         <div>
-          {selectedCartItems.map((item, index) => (
+          {selectedCartItems.map((item) => (
             <div className='grid grid-cols-12 px-5 py-3' key={item._id}>
               <div className='col-span-9'>
                 <div className='flex gap-3'>
@@ -88,7 +95,12 @@ const PaymentPage = () => {
             {totalPrice().toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
           </span>
         </div>
-        <span className='px-10 py-3 font-medium text-white bg-red-500 rounded-lg cursor-pointer'>Thanh toán</span>
+        <span
+          className='px-10 py-3 font-medium text-white bg-red-500 rounded-lg cursor-pointer'
+          onClick={() => payment()}
+        >
+          Thanh toán
+        </span>
       </div>
     </div>
   )

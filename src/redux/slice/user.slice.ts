@@ -3,14 +3,14 @@
 /* eslint-disable no-empty-pattern */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from '../../config/axios-customize'
-import { IMeta, IProduct, IUserCart } from '../../types/backend'
+import { IUserCart } from '../../types/backend'
 
-export const fetchListProduct = createAsyncThunk('product/fetchProduct', async (product, thunkAPI) => {
+export const fetchListProduct = createAsyncThunk('product/fetchProduct', async (_product, _thunkAPI) => {
   const res = await axios.get('/api/v1/users')
   return res.data
 })
 
-export const fetchUserById = createAsyncThunk('product/fetchUserById', async (users: any, thunkAPI) => {
+export const fetchUserById = createAsyncThunk('product/fetchUserById', async (users: any, _thunkAPI) => {
   const res = await axios.get(`/api/v1/users/${users._id}`)
   return res.data
 })

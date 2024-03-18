@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useAppDispatch, useAppSelector } from '@/redux/hook'
 import { createCart, resetCreateCart } from '@/redux/slice/cart.slice'
 import { fetchProductById } from '@/redux/slice/product.slice'

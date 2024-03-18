@@ -2,11 +2,11 @@
 import { useAppDispatch, useAppSelector } from '@/redux/hook'
 import { fetchListCart } from '@/redux/slice/cart.slice'
 import { Popover } from 'antd'
-import { useEffect, useLayoutEffect } from 'react'
+import { useLayoutEffect } from 'react'
 import { BsCart2 } from 'react-icons/bs'
 import CartContent from './CartContent'
 
-const Cart = (props: any) => {
+const Cart = () => {
   const dispatch = useAppDispatch()
   const infoUser = useAppSelector((state) => state.account.user)
   const carts = useAppSelector((state) => state.cart.listCart)

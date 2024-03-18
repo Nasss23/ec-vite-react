@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from '@/redux/hook'
 import { fetchListProduct } from '@/redux/slice/product.slice'
 import { IProduct } from '@/types/backend'
-import React, { useEffect, useLayoutEffect } from 'react'
+import { useLayoutEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 const ProductAdmin = () => {

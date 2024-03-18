@@ -1,4 +1,3 @@
-import React from 'react'
 import { NavLink } from 'react-router-dom'
 
 const nav = [
@@ -38,7 +37,7 @@ const LayoutNavbarAdmin = () => {
       </div>
       <div>
         <nav>
-          {nav.map((item, index) => (
+          {nav.map((item) => (
             <NavLink
               key={item.key}
               to={item.path}
