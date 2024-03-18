@@ -39,7 +39,7 @@ const CategoryDetailsPage = () => {
   }
 
   return (
-    <div className='flex flex-col gap-5 content'>
+    <div className='flex flex-col gap-5 py-5 content'>
       <div className='space-y-5'>
         <div>
           {resCategory.map((item) => (
@@ -62,7 +62,7 @@ const CategoryDetailsPage = () => {
         </div>
         {resBrand.length > 0 ? (
           <>
-            <div className='flex items-center gap-2'>
+            <div className='flex items-center gap-2 py-2 overflow-hidden overflow-x-auto'>
               {resBrand.map((item, _index) => (
                 <span
                   className={`px-5 py-2 text-xs font-medium uppercase border rounded-full cursor-pointer border-neutral-300 ${selectedBrands.includes(item.name) ? 'bg-blue-500 text-white' : ''}`}
@@ -75,7 +75,7 @@ const CategoryDetailsPage = () => {
             </div>
           </>
         ) : (
-          <div className='flex items-center gap-2'>
+          <div className='flex items-center gap-2 py-2 overflow-hidden overflow-x-auto'>
             {Array(5)
               .fill(0)
               .map((_item, index) => (
@@ -86,7 +86,7 @@ const CategoryDetailsPage = () => {
       </div>
       <div className='p-1 bg-gray-100 rounded-md'>
         {resProduct.length > 0 ? (
-          <div className='grid grid-cols-5 gap-1'>
+          <div className='flex gap-1 overflow-hidden overflow-x-auto lg:grid lg:grid-cols-5'>
             {resProduct.map((item, _index) => (
               <Card
                 _id={item._id}

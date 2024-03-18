@@ -9,7 +9,6 @@ const PaymentPage = () => {
   const dispatch = useAppDispatch()
   const cart = useAppSelector((state) => state.cart.listCart)
   const account = useAppSelector((state) => state.account.user)
-  console.log('account: ', account)
 
   const storedItems = localStorage.getItem('selectedItems')
   const selectedItemsFromStorage = storedItems ? JSON.parse(storedItems) : []
@@ -33,7 +32,6 @@ const PaymentPage = () => {
   }, [dispatch, selectedItems])
 
   const selectedCartItems = getSelectedCartItems()
-  console.log('selectedCartItems: ', selectedCartItems)
 
   const totalPrice = () => {
     return selectedCartItems.reduce((total, item: any) => {
@@ -49,26 +47,26 @@ const PaymentPage = () => {
     navigate('/')
   }
   return (
-    <div className='space-y-3 content'>
+    <div className='py-5 space-y-3 content'>
       <div className='flex flex-col gap-1 p-5 rounded-lg bg-neutral-200'>
-        <span className='text-xl font-bold'>Thông tin khách hàng</span>
+        <span className='text-base font-bold lg:text-xl'>Thông tin khách hàng</span>
         <div className='flex items-center justify-between'>
-          <div className='flex flex-col gap-1 text-lg font-medium'>
+          <div className='flex flex-col gap-1 text-base font-medium lg:text-lg'>
             <span>{account.name}</span>
             <span></span>
           </div>
         </div>
       </div>
       <div className='flex flex-col gap-1 p-5 rounded-lg bg-neutral-200'>
-        <div className='grid grid-cols-12 px-5 py-3'>
+        <div className='px-5 py-3 lg:grid lg:grid-cols-12'>
           <div className='col-span-9'>Sản phẩm</div>
           <div className='col-span-1 text-right'>Số lượng</div>
           <div className='col-span-2 text-right'>Thành tiền</div>
         </div>
         <div>
           {selectedCartItems.map((item) => (
-            <div className='grid grid-cols-12 px-5 py-3' key={item._id}>
-              <div className='col-span-9'>
+            <div className='px-5 py-3 lg:grid lg:grid-cols-12' key={item._id}>
+              <div className='lg:col-span-9'>
                 <div className='flex gap-3'>
                   <div className='w-[50px] h-[50px]'>
                     <img src={item.product?.image} alt='' className='object-cover w-full h-full' />
@@ -78,25 +76,25 @@ const PaymentPage = () => {
                   </div>
                 </div>
               </div>
-              <div className='col-span-1 text-right'>
+              <div className='text-right lg:col-span-1'>
                 <span>{item.quantity}</span>
               </div>
-              <div className='col-span-2 text-right'>
+              <div className='text-right lg:col-span-2'>
                 <span>{item?.product?.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
               </div>
             </div>
           ))}
         </div>
       </div>
-      <div className='flex items-center justify-between gap-1 p-5 rounded-lg bg-neutral-200'>
-        <div className='space-x-5'>
-          <span className='text-xl font-bold'>Tổng tiền thanh toán:</span>
-          <span className='text-2xl font-semibold text-red-500'>
+      <div className='flex flex-col items-end justify-between gap-1 p-5 rounded-lg lg:items-center bg-neutral-200 lg:flex-row'>
+        <div className='flex items-center justify-between w-full space-x-5 lg:justify-start'>
+          <span className='font-bold lg:text-xl'>Tổng tiền thanh toán:</span>
+          <span className='font-semibold text-red-500 lg:text-2xl'>
             {totalPrice().toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
           </span>
         </div>
         <span
-          className='px-10 py-3 font-medium text-white bg-red-500 rounded-lg cursor-pointer'
+          className='py-2 text-xs font-medium w-[150px] lg:w-[250px] text-center text-white bg-red-500 rounded-lg cursor-pointer lg:text-sm lg:py-3 lg:px-10 px-4'
           onClick={() => payment()}
         >
           Thanh toán

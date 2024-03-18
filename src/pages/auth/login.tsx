@@ -36,9 +36,7 @@ const Login = () => {
   })
 
   const [username, setUsername] = useState<string>('')
-  console.log('username: ', username)
   const [password, setPassword] = useState<string>('')
-  console.log('password: ', password)
 
   useEffect(() => {
     dispatch(fetchListCart())

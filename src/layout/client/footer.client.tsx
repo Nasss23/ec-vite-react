@@ -6,10 +6,10 @@ import { IoIosArrowDown } from 'react-icons/io'
 const Footer = () => {
   return (
     <footer className=''>
-      <div className='bg-[#D1E2EB] py-[60px]'>
+      <div className='bg-[#D1E2EB] lg:py-[60px] py-5'>
         <div className='content'>
-          <div className='flex justify-center gap-[126px]'>
-            <div className='space-y-[25px] text-sm leading-5 text-base-600 '>
+          <div className='grid grid-cols-12 gap-8 lg:gap-0'>
+            <div className='space-y-4 lg:space-y-[25px] text-sm leading-5 text-base-600 lg:col-span-3 col-span-6'>
               <span className='font-bold'>Company</span>
               <ul className='space-y-[15px]'>
                 <li>About Us</li>
@@ -17,7 +17,7 @@ const Footer = () => {
                 <li>Contact us</li>
               </ul>
             </div>
-            <div className='space-y-[25px] text-sm leading-5 text-base-600 '>
+            <div className='space-y-4 lg:space-y-[25px] text-sm leading-5 text-base-600 lg:col-span-3 col-span-6'>
               <span className='font-bold'>Career Opportunities</span>
               <ul className='space-y-[15px]'>
                 <li>Selling Programs</li>
@@ -25,7 +25,7 @@ const Footer = () => {
                 <li>Cooperation </li>
               </ul>
             </div>
-            <div className='space-y-[25px] text-sm leading-5 text-base-600 '>
+            <div className='space-y-4 lg:space-y-[25px] text-sm leading-5 text-base-600 lg:col-span-3 col-span-6'>
               <span className='font-bold'>How to Buy</span>
               <ul className='space-y-[15px]'>
                 <li>Making Payments</li>
@@ -34,7 +34,7 @@ const Footer = () => {
                 <li>New User Guide</li>
               </ul>
             </div>
-            <div className='space-y-[25px] text-sm leading-5 text-base-600 '>
+            <div className='space-y-4 lg:space-y-[25px] text-sm leading-5 text-base-600 lg:col-span-3 col-span-6'>
               <span className='font-bold'>Help</span>
               <ul className='space-y-[15px]'>
                 <li>Contacts Us</li>
@@ -43,7 +43,7 @@ const Footer = () => {
               </ul>
             </div>
           </div>
-          <div></div>
+          <></>
         </div>
       </div>
       <div className='py-6 content'>
@@ -57,8 +57,8 @@ const Footer = () => {
             English <IoIosArrowDown />
           </span>
         </div>
-        <div className='my-3 border border-neutral-200'></div>
-        <div className='flex items-center justify-between py-3'>
+        <div className='my-2 border lg:my-3 border-neutral-200'></div>
+        <div className='flex flex-col gap-4 lg:py-3 lg:items-center lg:justify-between'>
           <p className='text-sm leading-5 text-[#262626]'>165-179 Forster Road City of Monash, Melbourne, Australia</p>
           <p className='text-sm leading-5 text-[#9D9D9D]'>©2023 Copyright in reserved for lumine shop</p>
           <div className='flex items-center gap-3 text-[22px] text-base-400'>

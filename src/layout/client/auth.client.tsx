@@ -8,9 +8,9 @@ const Auth = () => {
         <span className='text-xl '>
           <IoIosArrowRoundBack />
         </span>
-        <span className='text-base font-semibold leading-[34px]'>Back to the website</span>
+        <span className=';g:text-base font-semibold leading-[34px] text-xs'>Back to the website</span>
       </Link>
-      <div className='py-[44px]'>
+      <div className='lg:py-[44px] py-5'>
         <Outlet></Outlet>
       </div>
     </div>

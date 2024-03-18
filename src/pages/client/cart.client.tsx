@@ -13,7 +13,6 @@ const CartPage = () => {
   const filterCart = carts.data.filter((cart) => cart.user === infoUser?._id)
 
   const [selectedItems, setSelectedItems] = useState<string[]>([])
-  console.log('selectedItems: ', selectedItems)
 
   const [selectAll, setSelectAll] = useState<boolean>(false)
 
@@ -75,7 +74,7 @@ const CartPage = () => {
   }
 
   return (
-    <div className='space-y-5 content pb-7'>
+    <div className='py-5 lg:space-y-5 content '>
       <div>
         <Breadcrumb
           items={[
@@ -88,8 +87,8 @@ const CartPage = () => {
           ]}
         />
       </div>
-      <div className='w-[900px] mx-auto space-y-4'>
-        <div className='p-5'>
+      <div className='lg:w-[900px] mx-auto lg:space-y-4'>
+        <div className='py-5'>
           <Checkbox onChange={handleSelectAllChange} checked={selectAll}>
             Chọn tất cả
           </Checkbox>
@@ -98,33 +97,33 @@ const CartPage = () => {
           {filterCart.map((item) => (
             <div className='p-4 border rounded-md border-neutral-400' key={item._id}>
               <div className='flex items-center justify-between'>
-                <div className='flex items-center gap-4'>
+                <div className='flex items-center gap-2 lg:gap-4'>
                   <Checkbox
                     onChange={() => handleCheckboxChange(item._id)}
                     checked={selectedItems.includes(item._id)}
                   ></Checkbox>
-                  <div className='flex gap-2'>
+                  <div className='flex items-center gap-2 lg:items-start'>
                     <Link
                       to={`/product/${item.product?._id}`}
-                      className='w-20 h-20 border rounded-md border-neutral-300'
+                      className='w-10 h-10 border rounded-md lg:w-20 lg:h-20 border-neutral-300'
                     >
                       <img src={item?.product?.image} alt='' className='object-cover w-full h-full' />
                     </Link>
-                    <div className='w-[300px]'>
-                      <span className='text-sm line-clamp-1'>{item?.product?.name}</span>
+                    <div className='lg:w-[300px] w-[100px]'>
+                      <span className='text-sm lg:line-clamp-1 line-clamp-3'>{item?.product?.name}</span>
                     </div>
                   </div>
                 </div>
-                <div className='flex items-center gap-20'>
-                  <div className='flex items-center gap-5'>
+                <div className='flex items-end gap-5 lg:items-center lg:gap-20'>
+                  <div className='flex flex-col-reverse items-center gap-2 lg:gap-5 lg:flex-row'>
                     <div className='flex items-center'>
                       <span
-                        className='px-2 border cursor-pointer border-neutral-300'
+                        className='px-2.5 border cursor-pointer  border-neutral-300'
                         onClick={() => decrementQuantity(item._id)}
                       >
                         -
                       </span>
-                      <div className='px-4 border border-neutral-300 border-x-transparent'>{item.quantity}</div>
+                      <div className='px-3 border lg:px-4 border-neutral-300 border-x-transparent'>{item.quantity}</div>
                       <span
                         className='px-2 border cursor-pointer border-neutral-300'
                         onClick={() => increamentQuantity(item._id)}
@@ -137,7 +136,7 @@ const CartPage = () => {
                     </span>
                   </div>
                   <button
-                    className='transition-all ease-linear hover:text-red-500 decoration-slice'
+                    className='text-xs transition-all ease-linear hover:text-red-500 decoration-slice lg:text-sm'
                     onClick={() => handleDeleteCart(item._id)}
                   >
                     Xóa
@@ -147,24 +146,26 @@ const CartPage = () => {
             </div>
           ))}
         </div>
-        <div className='flex items-center justify-between'>
+        <div className='flex items-center justify-between space-y-4'>
           <div></div>
-          <div className='flex items-center gap-4'>
+          <div className='flex items-start justify-between flex-1 gap-4 lg:items-center'>
             <div>
-              <span className='text-xl font-medium'>
+              <span className='font-medium lg:text-xl'>
                 Tổng thanh toán ( <span className='text-blue-500'>{selectedItems.length}</span> sản phẩm)
               </span>
             </div>
-            <div className='text-xl font-medium text-blue-500'>
-              {totalPrice().toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+            <div className='flex flex-col gap-2 lg:items-center lg:flex-row lg:gap-8'>
+              <div className='font-medium text-blue-500 lg:text-xl'>
+                {totalPrice().toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+              </div>
+              <button
+                className={`${selectedItems.length > 0 ? 'flex lg:px-16 px-10 py-3 font-medium text-white bg-blue-500 rounded cursor-pointer' : 'flex px-10 lg:px-16 py-3 font-medium text-white bg-gray-500 rounded cursor-pointer'}`}
+                onClick={() => buy()}
+                disabled={selectedItems.length > 0 ? false : true}
+              >
+                Mua
+              </button>
             </div>
-            <button
-              className={`${selectedItems.length > 0 ? 'flex px-16 py-3 font-medium text-white bg-blue-500 rounded cursor-pointer' : 'flex px-16 py-3 font-medium text-white bg-gray-500 rounded cursor-pointer'}`}
-              onClick={() => buy()}
-              disabled={selectedItems.length > 0 ? false : true}
-            >
-              Mua
-            </button>
           </div>
         </div>
       </div>

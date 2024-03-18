@@ -17,9 +17,6 @@ const CategoryAdmin = () => {
   const dispatch = useAppDispatch()
   const category = useAppSelector((state) => state.category.listCategory)
 
-  const brand = useAppSelector((state) => state.brand.listBrand)
-  console.log('product: ', brand)
-
   useEffect(() => {
     dispatch(fetchListCategory())
   }, [])

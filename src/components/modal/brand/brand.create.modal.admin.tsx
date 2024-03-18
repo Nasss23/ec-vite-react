@@ -36,7 +36,6 @@ const ModalBrandCreate = (props: any) => {
   }))
 
   const handleCreate = () => {
-    console.log({ name, description, category })
     dispatch(createABrand({ name, description, category }))
   }
 

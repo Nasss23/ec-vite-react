@@ -34,7 +34,7 @@ const Card: React.FC<IProps> = (props: IProps) => {
   }
 
   return (
-    <div className='px-2 py-3 transition-all ease-linear bg-white border rounded-lg hover:shadow-2xl decoration-clone'>
+    <div className='px-2 py-3 transition-all ease-linear bg-white border rounded-lg hover:shadow-2xl decoration-clone w-[230px] min-w-[230px] lg:w-auto'>
       <Link to={`/product/${path}`} className='space-y-3'>
         <div className='h-[240px] flex items-center justify-center'>
           <img src={image} alt='' className='flex-shrink-0 object-cover w-full h-full' />

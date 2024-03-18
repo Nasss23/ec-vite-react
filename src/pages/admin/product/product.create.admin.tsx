@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom'
 const ProductCreateAdmin = () => {
   // const dispatch = useAppDispatch()
   const brand = useAppSelector((state) => state.brand.listBrand)
-  console.log('brand: ', brand)
 
   const value = brand.data
   const options = value.map((item) => ({

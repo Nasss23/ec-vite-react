@@ -12,7 +12,6 @@ const LayoutHeaderAdmin = () => {
   const isAuthenticated = useAppSelector((state) => state.account.isAuthenticated)
   const user = useAppSelector((state) => state.account.user)
   const [openMangeAccount, setOpenManageAccount] = useState<boolean>(false)
-  console.log('openMangeAccount: ', openMangeAccount)
 
   const handleLogout = async () => {
     const res = await callLogout()

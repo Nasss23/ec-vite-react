@@ -30,9 +30,9 @@ const Cart = () => {
           <span className='text-xl'>
             <BsCart2 />
           </span>
-          Cart
+          <span className='hidden lg:block'>Cart</span>
         </div>
-        <div className='flex items-center justify-center rounded-full w-7 h-7 bg-secondary-400'>
+        <div className='flex items-center justify-center text-white rounded-full w-7 h-7 bg-secondary-400'>
           {filterCart?.length}
         </div>
       </div>

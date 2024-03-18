@@ -5,11 +5,13 @@ import Header from './header.client'
 const Layout = () => {
   return (
     <>
-      <Header></Header>
-      <div className='py-5'>
-        <Outlet></Outlet>
+      <div className='lg:py-[28px] py-8'>
+        <Header></Header>
+        <div className='lg:py-5'>
+          <Outlet></Outlet>
+        </div>
+        <Footer></Footer>
       </div>
-      <Footer></Footer>
     </>
   )
 }

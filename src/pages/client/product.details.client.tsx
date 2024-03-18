@@ -29,12 +29,12 @@ const ProductDetailsPage = () => {
 
   if (!product)
     return (
-      <div className='pb-7'>
+      <div className='py-5 lg:pb-7 lg:py-0'>
         <Empty></Empty>
       </div>
     )
   return (
-    <div className='space-y-5 pb-7 content'>
+    <div className='py-5 space-y-5 lg:pb-7 lg:py-0 content'>
       <div>
         <Breadcrumb
           items={[
@@ -47,15 +47,17 @@ const ProductDetailsPage = () => {
           ]}
         />
       </div>
-      <div className='grid grid-cols-12 gap-5'>
-        <div className='col-span-5'>
-          <div className='w-full h-[530px]'>
-            <img src={product.image} alt='' className='object-cover w-full h-full' />
+      <div className='flex flex-col gap-5 lg:grid lg:grid-cols-12'>
+        <div className='lg:col-span-5'>
+          <div className='w-full lg:h-[530px] flex justify-center'>
+            <div className='w-[200px] lg:w-full lg:h-full'>
+              <img src={product.image} alt='' className='object-cover w-full h-full' />
+            </div>
           </div>
         </div>
-        <div className='col-span-7'>
-          <h2 className='text-[28px] leading-[44px] font-medium'>{product.name}</h2>
-          <span className='text-2xl font-medium text-red-500'>
+        <div className='space-y-3 lg:col-span-7'>
+          <h2 className='lg:text-[28px] lg:leading-[44px] leading-6 text-lg font-medium'>{product.name}</h2>
+          <span className='text-lg font-medium text-red-500 lg:text-2xl'>
             {product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
           </span>
           <div className='flex items-center gap-5'>

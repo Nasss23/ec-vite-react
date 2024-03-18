@@ -15,13 +15,13 @@ const HomePage = () => {
   }, [])
 
   return (
-    <div className='space-y-[50px] content'>
-      <div className='flex flex-col gap-[48px]'>
+    <div className='lg:space-y-[50px] space-y-[25px] content py-3 lg:py-0'>
+      <div className='flex flex-col lg:gap-[48px] gap-6'>
         <div className='flex items-center justify-between'>
           <h1 className='text-[28px] font-medium leading-[44px] text-black'>Featured</h1>
           <span className='text-sm font-medium'>View all</span>
         </div>
-        <div className='grid grid-cols-5 gap-1'>
+        <div className='flex gap-1 overflow-hidden overflow-x-auto lg:grid lg:grid-cols-5'>
           {product?.data?.map((item: IProduct, _index: number) => (
             <Card
               path={item._id}
