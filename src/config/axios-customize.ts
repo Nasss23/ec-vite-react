@@ -5,7 +5,7 @@ import { setRefreshTokenAction } from '../redux/auth/account.slice'
 
 const instance = axiosClient.create({
   baseURL: import.meta.env.VITE_BACKEND_URL as string,
-  // baseURL: 'http://localhost:8000',
+  // baseURL: import.meta.env.VITE_BACKEND_DEV as string,
   withCredentials: true
 })
 
@@ -15,7 +15,6 @@ const NO_RETRY_HEADER = 'x-no-retry'
 const handleRefreshToken = async (): Promise<string | null> => {
   return await mutex.runExclusive(async () => {
     const res = await instance.get('/api/v1/auth/refresh')
-    // console.log('handleRefreshToken', res);
     if (res && res.data) {
       return res.data
     } else return null
@@ -24,11 +23,6 @@ const handleRefreshToken = async (): Promise<string | null> => {
 
 instance.interceptors.request.use(function (config) {
   if (typeof window !== 'undefined' && window && window.localStorage && window.localStorage.getItem('access_token')) {
-    // console.log('window.localStorage ', window.localStorage);
-    // console.log(
-    // 	"window.localStorage.getItem('access_token')",
-    // 	window.localStorage.getItem('access_token'),
-    // );
     config.headers.Authorization = 'Bearer ' + window.localStorage.getItem('access_token')
   }
   if (!config.headers.Accept && config.headers['Content-Type']) {
@@ -40,7 +34,6 @@ instance.interceptors.request.use(function (config) {
 
 instance.interceptors.response.use(
   async (res) => {
-    // console.log('res: ', res);
     if (res) {
       return res.data
     }
