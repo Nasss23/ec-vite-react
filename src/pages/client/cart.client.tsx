@@ -49,7 +49,7 @@ const CartPage = () => {
   const handleSelectAllChange = () => {
     if (!selectAll) {
       const itemsNotInOrder = carts.data.filter((cartItem) => {
-        return !order.data.some((orderItem) =>
+        return !order.data?.some((orderItem) =>
           orderItem.cart?.some((orderCartItem) => orderCartItem._id === cartItem._id)
         )
       })
