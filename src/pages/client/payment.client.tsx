@@ -1,17 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useAppDispatch, useAppSelector } from '@/redux/hook'
-import { deleteCart, fetchListCart } from '@/redux/slice/cart.slice'
+import { fetchListCart } from '@/redux/slice/cart.slice'
 import { createOrder, fetchListOrder } from '@/redux/slice/order.slice'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 const itemCart = 0
 const PaymentPage = () => {
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const cart = useAppSelector((state) => state.cart.listCart)
   const account = useAppSelector((state) => state.account.user)
-  const order = useAppSelector((state) => state.order.listOrder)
+  // const order = useAppSelector((state) => state.order.listOrder)
 
   const storedItems = localStorage.getItem('selectedItems')
   const selectedItemsFromStorage = storedItems ? JSON.parse(storedItems) : []
@@ -32,7 +32,7 @@ const PaymentPage = () => {
       setSelectedItems(JSON.parse(storedItems))
     }
     // Xóa selectedItems từ localStorage để tránh lưu trữ không cần thiết
-    // localStorage.removeItem('selectedItems')
+    localStorage.removeItem('selectedItems')
   }, [])
 
   useEffect(() => {

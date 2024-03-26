@@ -13,9 +13,11 @@ const Cart = () => {
   const carts = useAppSelector((state) => state.cart.listCart)
   const order = useAppSelector((state) => state.order.listOrder)
 
-  const filterCart = carts.data.filter((cart) => cart.user === infoUser._id)
+  const filterCart = carts.data ? carts.data.filter((cart) => cart.user === infoUser._id) : []
   const itemsNotInOrder = filterCart.filter((cartItem) => {
-    return !order.data.some((orderItem) => orderItem.cart?.some((orderCartItem) => orderCartItem._id === cartItem._id))
+    return !order.data
+      ? true
+      : !order.data.some((orderItem) => orderItem.cart?.some((orderCartItem) => orderCartItem._id === cartItem._id))
   })
 
   useLayoutEffect(() => {
