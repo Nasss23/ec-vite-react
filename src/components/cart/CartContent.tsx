@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useAppDispatch, useAppSelector } from '@/redux/hook'
 import { deleteCart, fetchListCart } from '@/redux/slice/cart.slice'
+import { fetchListOrder } from '@/redux/slice/order.slice'
 import { Empty } from 'antd'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
@@ -10,9 +11,11 @@ const CartContent = () => {
 
   const infoUser = useAppSelector((state) => state.account.user)
   const carts = useAppSelector((state) => state.cart.listCart)
+  const order = useAppSelector((state) => state.order.listOrder)
 
   useEffect(() => {
     dispatch(fetchListCart())
+    dispatch(fetchListOrder())
   }, [dispatch])
 
   const handleDeleteCart = (id: any) => {
@@ -20,6 +23,11 @@ const CartContent = () => {
   }
 
   const filterCart = carts.data.filter((cart) => cart.user === infoUser._id)
+
+  const itemsNotInOrder = filterCart.filter((cartItem) => {
+    // Kiểm tra xem cartItem có trong danh sách cart của bất kỳ đơn hàng nào không
+    return !order.data.some((orderItem) => orderItem.cart?.some((orderCartItem) => orderCartItem._id === cartItem._id))
+  })
 
   if (!carts?.data)
     return (
@@ -30,7 +38,7 @@ const CartContent = () => {
   return (
     <div className='lg:w-[450px] flex flex-col gap-5 w-[320px]'>
       <div className='flex flex-col '>
-        {filterCart.map((item) => (
+        {itemsNotInOrder.map((item) => (
           <div
             className='flex justify-between gap-4 py-2 border border-x-transparent border-t-transparent border-neutral-200'
             key={item._id}
@@ -62,7 +70,7 @@ const CartContent = () => {
       </div>
       <div className='flex items-center justify-between'>
         <span className='text-xs'>
-          Có <span className='font-medium text-blue-500'>{filterCart.length}</span> sản phẩm
+          Có <span className='font-medium text-blue-500'>{itemsNotInOrder.length}</span> sản phẩm
         </span>
         <Link to={'/cart'} className='px-4 py-2 font-medium text-white bg-blue-500 rounded-md'>
           Xem giỏ hàng

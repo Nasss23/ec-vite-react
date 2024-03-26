@@ -87,7 +87,7 @@ export interface IBrand {
 
 export interface ICart {
   _id: string
-  quantity: number
+  quantity?: number
   product?: {
     _id: string
     name: string
@@ -95,7 +95,7 @@ export interface ICart {
     image: string
     slug?: string
   }
-  user: string
+  user?: string
 }
 
 export interface IUserCart {
@@ -106,4 +106,10 @@ export interface IUserCart {
     quatity?: number
     product: IProduct
   }[]
+}
+
+export interface IOrder {
+  _id: string
+  cart?: ICart[]
+  totalPrice: number
 }

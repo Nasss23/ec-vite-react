@@ -1,14 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useAppDispatch, useAppSelector } from '@/redux/hook'
-import { fetchListCart } from '@/redux/slice/cart.slice'
+import { deleteCart, fetchListCart } from '@/redux/slice/cart.slice'
+import { createOrder, fetchListOrder } from '@/redux/slice/order.slice'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+const itemCart = 0
 const PaymentPage = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const cart = useAppSelector((state) => state.cart.listCart)
   const account = useAppSelector((state) => state.account.user)
+  const order = useAppSelector((state) => state.order.listOrder)
 
   const storedItems = localStorage.getItem('selectedItems')
   const selectedItemsFromStorage = storedItems ? JSON.parse(storedItems) : []
@@ -17,6 +20,11 @@ const PaymentPage = () => {
   const getSelectedCartItems = () => {
     return cart.data.filter((item) => selectedItems.includes(item._id))
   }
+
+  useEffect(() => {
+    dispatch(fetchListOrder())
+  }, [])
+
   useEffect(() => {
     // Lấy selectedItems từ localStorage khi component được render
     const storedItems = localStorage.getItem('selectedItems')
@@ -44,7 +52,10 @@ const PaymentPage = () => {
 
   const payment = () => {
     localStorage.removeItem('selectedItems')
-    navigate('/')
+    // navigate('/')
+    if (selectedCartItems.length >= itemCart) {
+      dispatch(createOrder({ cart: selectedCartItems, totalPrice: totalPrice() }))
+    }
   }
   return (
     <div className='py-5 space-y-3 content'>
@@ -93,12 +104,13 @@ const PaymentPage = () => {
             {totalPrice().toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
           </span>
         </div>
-        <span
-          className='py-2 text-xs font-medium w-[150px] lg:w-[250px] text-center text-white bg-red-500 rounded-lg cursor-pointer lg:text-sm lg:py-3 lg:px-10 px-4'
+        <button
+          className={`${selectedCartItems.length <= 0 ? 'py-2 text-xs font-medium w-[150px] lg:w-[250px] text-center text-white bg-gray-500 rounded-lg cursor-pointer lg:text-sm lg:py-3 lg:px-10 px-4' : 'py-2 text-xs font-medium w-[150px] lg:w-[250px] text-center text-white bg-red-500 rounded-lg cursor-pointer lg:text-sm lg:py-3 lg:px-10 px-4'}`}
           onClick={() => payment()}
+          disabled={selectedCartItems.length <= 0 ? true : false}
         >
           Thanh toán
-        </span>
+        </button>
       </div>
     </div>
   )
