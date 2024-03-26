@@ -11,14 +11,20 @@ const PaymentPage = () => {
   const dispatch = useAppDispatch()
   const cart = useAppSelector((state) => state.cart.listCart)
   const account = useAppSelector((state) => state.account.user)
-  // const order = useAppSelector((state) => state.order.listOrder)
+  const order = useAppSelector((state) => state.order.listOrder)
 
   const storedItems = localStorage.getItem('selectedItems')
   const selectedItemsFromStorage = storedItems ? JSON.parse(storedItems) : []
   const [selectedItems, setSelectedItems] = useState<string[]>(selectedItemsFromStorage)
 
   const getSelectedCartItems = () => {
-    return cart.data.filter((item) => selectedItems.includes(item._id))
+    const carts = cart.data ? cart.data.filter((item) => selectedItems.includes(item._id)) : []
+    const itemsNotInOrder = carts.filter((cartItem) => {
+      return !order.data
+        ? true
+        : !order.data.some((orderItem) => orderItem.cart?.some((orderCartItem) => orderCartItem._id === cartItem._id))
+    })
+    return itemsNotInOrder
   }
 
   useEffect(() => {

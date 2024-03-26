@@ -22,11 +22,11 @@ const CartContent = () => {
     dispatch(deleteCart({ _id: id }))
   }
 
-  const filterCart = carts.data.filter((cart) => cart.user === infoUser._id)
-
+  const filterCart = carts.data ? carts.data.filter((cart) => cart.user === infoUser._id) : []
   const itemsNotInOrder = filterCart.filter((cartItem) => {
-    // Kiểm tra xem cartItem có trong danh sách cart của bất kỳ đơn hàng nào không
-    return !order.data.some((orderItem) => orderItem.cart?.some((orderCartItem) => orderCartItem._id === cartItem._id))
+    return !order.data
+      ? true
+      : !order.data.some((orderItem) => orderItem.cart?.some((orderCartItem) => orderCartItem._id === cartItem._id))
   })
 
   if (!carts?.data)
