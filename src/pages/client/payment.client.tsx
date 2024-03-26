@@ -10,6 +10,7 @@ const PaymentPage = () => {
   // const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const cart = useAppSelector((state) => state.cart.listCart)
+  const infoUser = useAppSelector((state) => state.account.user)
   const account = useAppSelector((state) => state.account.user)
   const order = useAppSelector((state) => state.order.listOrder)
 
@@ -38,7 +39,6 @@ const PaymentPage = () => {
       setSelectedItems(JSON.parse(storedItems))
     }
     // Xóa selectedItems từ localStorage để tránh lưu trữ không cần thiết
-    localStorage.removeItem('selectedItems')
   }, [])
 
   useEffect(() => {
@@ -46,9 +46,12 @@ const PaymentPage = () => {
   }, [dispatch, selectedItems])
 
   const selectedCartItems = getSelectedCartItems()
+  console.log('selectedCartItems: ', selectedCartItems)
+
+  const filterOrder = selectedCartItems.filter((cart) => cart.user === infoUser._id)
 
   const totalPrice = () => {
-    return selectedCartItems.reduce((total, item: any) => {
+    return filterOrder.reduce((total, item: any) => {
       if (selectedItems.includes(item._id)) {
         return total + item.product?.price * item.quantity
       }
@@ -57,10 +60,10 @@ const PaymentPage = () => {
   }
 
   const payment = () => {
-    localStorage.removeItem('selectedItems')
     // navigate('/')
     if (selectedCartItems.length >= itemCart) {
       dispatch(createOrder({ cart: selectedCartItems, totalPrice: totalPrice() }))
+      localStorage.removeItem('selectedItems')
     }
   }
   return (
@@ -81,7 +84,7 @@ const PaymentPage = () => {
           <div className='col-span-2 text-right'>Thành tiền</div>
         </div>
         <div>
-          {selectedCartItems.map((item) => (
+          {filterOrder.map((item) => (
             <div className='px-5 py-3 lg:grid lg:grid-cols-12' key={item._id}>
               <div className='lg:col-span-9'>
                 <div className='flex gap-3'>

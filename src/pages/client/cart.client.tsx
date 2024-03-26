@@ -9,6 +9,10 @@ import { Link, useNavigate } from 'react-router-dom'
 const CartPage = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+
+  const [selectedItems, setSelectedItems] = useState<string[]>([])
+  const [selectAll, setSelectAll] = useState<boolean>(false)
+
   const infoUser = useAppSelector((state) => state.account.user)
   const carts = useAppSelector((state) => state.cart.listCart)
   const order = useAppSelector((state) => state.order.listOrder)
@@ -19,9 +23,6 @@ const CartPage = () => {
       ? true
       : !order.data.some((orderItem) => orderItem.cart?.some((orderCartItem) => orderCartItem._id === cartItem._id))
   })
-
-  const [selectedItems, setSelectedItems] = useState<string[]>([])
-  const [selectAll, setSelectAll] = useState<boolean>(false)
 
   useLayoutEffect(() => {
     dispatch(fetchListCart())
@@ -34,13 +35,9 @@ const CartPage = () => {
 
   // dùng GPT!!! hí hí:)))))
   const handleCheckboxChange = (id: string) => {
-    if (itemsNotInOrder) {
-      // Nếu phần tử với id đã tồn tại trong mảng selectedItems
-      // Thực hiện loại bỏ phần tử đó khỏi mảng selectedItems
+    if (selectedItems.includes(id)) {
       setSelectedItems(selectedItems.filter((itemId) => itemId !== id))
     } else {
-      // Nếu phần tử với id không tồn tại trong mảng selectedItems
-      // Thêm phần tử đó vào mảng selectedItems
       setSelectedItems([...selectedItems, id])
     }
   }
@@ -49,17 +46,23 @@ const CartPage = () => {
   const handleSelectAllChange = () => {
     if (!selectAll) {
       const itemsNotInOrder = carts.data.filter((cartItem) => {
-        return !order.data?.some((orderItem) =>
+        return !order?.data?.some((orderItem) =>
           orderItem.cart?.some((orderCartItem) => orderCartItem._id === cartItem._id)
         )
       })
       const itemsNotInOrderIds = itemsNotInOrder.map((item) => item._id)
-
       setSelectedItems(itemsNotInOrderIds)
     } else {
       setSelectedItems([])
     }
     setSelectAll(!selectAll)
+  }
+
+  const increamentQuantity = async (id: string) => {
+    dispatch(incrementCart({ _id: id }))
+  }
+  const decrementQuantity = async (id: string) => {
+    dispatch(decrementCart({ _id: id }))
   }
 
   // dùng GPT!!! hí hí:)))))
@@ -72,19 +75,10 @@ const CartPage = () => {
     }, 0)
   }
 
-  const increamentQuantity = async (id: string) => {
-    dispatch(incrementCart({ _id: id }))
-  }
-  const decrementQuantity = async (id: string) => {
-    dispatch(decrementCart({ _id: id }))
-  }
-
   const buy = () => {
     // Lưu selectedItems vào localStorage
     localStorage.setItem('selectedItems', JSON.stringify(selectedItems))
     navigate('/payment')
-    // Chuyển hướng đến trang khác, có thể làm bằng cách sử dụng React Router hoặc các phương pháp chuyển hướng khác
-    // Ví dụ: history.push('/path-to-another-page');
   }
 
   return (
