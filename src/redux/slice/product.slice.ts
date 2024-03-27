@@ -3,7 +3,7 @@
 /* eslint-disable no-empty-pattern */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from '../../config/axios-customize'
-import { IBrand, IMeta, IProduct } from '../../types/backend'
+import { IMeta, IProduct } from '../../types/backend'
 
 export const fetchListProduct = createAsyncThunk('product/fetchProduct', async (_product, _thunkAPI) => {
   const res = await axios.get('/api/v1/product')
@@ -14,7 +14,7 @@ export const fetchListProductParams = createAsyncThunk(
   'product/fetchListProductParams',
   async (product: IProductState, _thunkAPI) => {
     const res = await axios.get('/api/v1/product', { params: { name: product.name } })
-    return res.data
+    return res?.data
   }
 )
 
@@ -30,8 +30,11 @@ interface IProductState {
   _id?: string
   name?: string | string[]
   price?: number
-  image?: string
-  brand?: IBrand
+  image?: {
+    name: string | undefined
+    uid: string
+  }[]
+  brand?: string
   description?: string
   quantity?: number
   discount?: number
@@ -90,7 +93,7 @@ const initialState: IState = {
         _id: '',
         name: '',
         price: 0,
-        image: '',
+        image: [''],
         brand: {
           _id: '',
           name: '',
@@ -119,7 +122,7 @@ const initialState: IState = {
         _id: '',
         name: '',
         price: 0,
-        image: '',
+        image: [''],
         brand: {
           _id: '',
           name: '',
@@ -146,7 +149,7 @@ const initialState: IState = {
     _id: '',
     name: '',
     price: 0,
-    image: '',
+    image: [''],
     brand: {
       _id: '',
       name: '',

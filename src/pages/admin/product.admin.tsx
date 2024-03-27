@@ -41,9 +41,6 @@ const ProductAdmin = () => {
                   Image
                 </th>
                 <th scope='col' className='px-6 py-3 whitespace-nowrap'>
-                  Description
-                </th>
-                <th scope='col' className='px-6 py-3 whitespace-nowrap'>
                   Sold
                 </th>
                 <th scope='col' className='px-6 py-3 whitespace-nowrap'>
@@ -75,14 +72,16 @@ const ProductAdmin = () => {
                   </td>
                   <td className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
                     <div className='w-10 h-10'>
-                      <img src={item.image} alt='' />
+                      {item.image?.map((item, index) => (
+                        <img key={index} src={`${import.meta.env.VITE_BACKEND_URL}/images/product/${item}`} alt='' />
+                      ))}
                     </div>
                   </td>
-                  <td className='px-6 py-4 line-clamp-1 '>{item.description}</td>
+
                   <td className='px-6 py-4 whitespace-nowrap'>{item.sold}</td>
                   <td className='px-6 py-4 whitespace-nowrap'>{item.discount}</td>
                   <td className='px-6 py-4 whitespace-nowrap'>{item.quantity}</td>
-                  <td className='px-6 py-4 whitespace-nowrap'>{item.brand.name}</td>
+                  <td className='px-6 py-4 whitespace-nowrap'>{item.brand?.name}</td>
                   <td className='flex items-center gap-3 px-6 py-4 text-right text-white'>
                     <button
                       className='px-3 py-2 bg-blue-500 rounded-md cursor-pointer'

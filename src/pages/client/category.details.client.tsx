@@ -17,7 +17,7 @@ const CategoryDetailsPage = () => {
 
   const resBrand = brand.data.filter((brand) => brand.category._id === id)
   const resCategory = category.data.filter((category) => category._id === id)
-  const resProduct = product.data.filter((product) => product.brand.category === id)
+  const resProduct = product.data.filter((product) => product.brand?.category === id)
 
   const [selectedBrands, setSelectedBrands] = useState<string[]>([])
 

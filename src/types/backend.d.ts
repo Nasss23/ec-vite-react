@@ -38,23 +38,23 @@ export interface IUser {
 export interface IGetAccount extends Omit<IAccount, 'access_token'> {}
 
 export interface IProduct {
-  _id: string
-  name: string
-  price: number
-  image: string
-  brand: {
+  _id?: string
+  name?: string
+  price?: number
+  image?: string[]
+  brand?: {
     _id?: string
     name: string
     description: string
     category: string
   }
-  description: string
-  slug: string
-  quantity: number
-  discount: number
-  sold: number
-  discountStartDate: Date | null
-  discountEndDate: Date | null
+  description?: string
+  slug?: string
+  quantity?: number
+  discount?: number
+  sold?: number
+  discountStartDate?: Date | null
+  discountEndDate?: Date | null
 }
 
 export interface ICatagory {

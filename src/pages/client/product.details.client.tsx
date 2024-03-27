@@ -51,14 +51,18 @@ const ProductDetailsPage = () => {
         <div className='lg:col-span-5'>
           <div className='w-full lg:h-[530px] flex justify-center'>
             <div className='w-[200px] lg:w-full lg:h-full'>
-              <img src={product.image} alt='' className='object-cover w-full h-full' />
+              <img
+                src={`${import.meta.env.VITE_BACKEND_URL}/images/product/${product.image}`}
+                alt=''
+                className='object-cover w-full h-full'
+              />
             </div>
           </div>
         </div>
         <div className='space-y-3 lg:col-span-7'>
           <h2 className='lg:text-[28px] lg:leading-[44px] leading-6 text-lg font-medium'>{product.name}</h2>
           <span className='text-lg font-medium text-red-500 lg:text-2xl'>
-            {product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+            {product.price?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
           </span>
           <div className='flex items-center gap-5'>
             <button className='w-full px-5 py-2 mt-2 font-medium text-white bg-red-500 rounded-lg t'>Buy</button>

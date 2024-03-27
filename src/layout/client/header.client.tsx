@@ -59,11 +59,11 @@ const Header = () => {
       key: 'manage-account',
       icon: <ContactsOutlined />
     },
-    // {
-    //   label: <Link to={'/admin/home'}>Trang Quản Trị</Link>,
-    //   key: 'admin',
-    //   icon: <DashOutlined />
-    // },
+    {
+      label: <Link to={'/admin/home'}>Trang Quản Trị</Link>,
+      key: 'admin',
+      icon: <></>
+    },
     {
       label: (
         <label style={{ cursor: 'pointer' }} onClick={() => handleLogout()}>
@@ -135,7 +135,11 @@ const Header = () => {
                     {product.data.slice(0, 3).map((item) => (
                       <Link to={`/product/${item._id}`} key={item._id} className='flex gap-5 py-2 '>
                         <div className='w-10 h-10'>
-                          <img src={item.image} alt='' className='object-cover w-full h-full' />
+                          <img
+                            src={`${import.meta.env.VITE_BACKEND_URL}/images/product/${item?.image}`}
+                            alt=''
+                            className='object-cover w-full h-full'
+                          />
                         </div>
                         <span>{item.name}</span>
                       </Link>
@@ -174,7 +178,11 @@ const Header = () => {
                   {product.data.slice(0, 3).map((item) => (
                     <Link to={`/product/${item._id}`} key={item._id} className='flex gap-5 py-2 '>
                       <div className='w-10 h-10'>
-                        <img src={item.image} alt='' className='object-cover w-full h-full' />
+                        <img
+                          src={`${import.meta.env.VITE_BACKEND_URL}/images/product/${item?.image}`}
+                          alt=''
+                          className='object-cover w-full h-full'
+                        />
                       </div>
                       <span>{item.name}</span>
                     </Link>

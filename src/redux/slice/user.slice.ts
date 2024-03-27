@@ -34,7 +34,7 @@ const initialState: IState = {
           _id: '',
           name: '',
           price: 0,
-          image: '',
+          image: [''],
           brand: {
             _id: '',
             name: '',

@@ -45,7 +45,11 @@ const CartContent = () => {
           >
             <div className='flex gap-2'>
               <Link to={`/product/${item.product?._id}`} className='w-10 h-10 cursor-pointer'>
-                <img src={item.product?.image} alt='' className='object-cover rounded-md' />
+                <img
+                  src={`${import.meta.env.VITE_BACKEND_URL}/images/product/${item.product?.image}`}
+                  alt=''
+                  className='object-cover rounded-md'
+                />
               </Link>
               <h4 className='text-sm line-clamp-1 lg:w-[250px]'>{item.product?.name}</h4>
             </div>

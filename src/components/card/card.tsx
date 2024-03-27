@@ -5,11 +5,11 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 interface IProps {
-  _id: string
-  image: string
-  title: string
+  _id?: string
+  image?: string[]
+  title?: string
   rate?: number
-  price: number
+  price?: number
   discount?: number
   path?: string
   sold?: number
@@ -37,7 +37,12 @@ const Card: React.FC<IProps> = (props: IProps) => {
     <div className='px-2 py-3 transition-all ease-linear bg-white border rounded-lg hover:shadow-2xl decoration-clone w-[230px] min-w-[230px] lg:w-auto'>
       <Link to={`/product/${path}`} className='space-y-3'>
         <div className='h-[240px] flex items-center justify-center'>
-          <img src={image} alt='' className='flex-shrink-0 object-cover w-full h-full' />
+          <img
+            src={`${import.meta.env.VITE_BACKEND_URL}/images/product/${image}`}
+            alt=''
+            className='flex-shrink-0 object-cover w-full h-full'
+            loading='lazy'
+          />
         </div>
         <div className=''>
           <p className='text-base leading-[22px] text-[#141718] font-semibold line-clamp-2'>{title}</p>
@@ -45,7 +50,7 @@ const Card: React.FC<IProps> = (props: IProps) => {
           <div className='flex items-center justify-between'>
             <div className='flex items-center gap-2'>
               <span className='text-base leading-[26px] text-[#141718] font-semibold '>
-                {price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                {price?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
               </span>
               <span className='text-sm line-through leading-[26px] text-red-400 font-medium '>{discount}%</span>
             </div>

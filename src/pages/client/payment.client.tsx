@@ -80,7 +80,11 @@ const PaymentPage = () => {
               <div className='lg:col-span-9'>
                 <div className='flex gap-3'>
                   <div className='w-[50px] h-[50px]'>
-                    <img src={item.product?.image} alt='' className='object-cover w-full h-full' />
+                    <img
+                      src={`${import.meta.env.VITE_BACKEND_URL}/images/product/${item.product?.image}`}
+                      alt=''
+                      className='object-cover w-full h-full'
+                    />
                   </div>
                   <div>
                     <span className='text-sm font-normal'>{item.product?.name}</span>

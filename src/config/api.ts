@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from './axios-customize' // Use the same import statement
 
 //Auth account
@@ -45,4 +46,38 @@ export const fetchCategory = () => {
 //API User
 export const fetchUserById = (id: string) => {
   return axios.get(`/api/v1/users/${id}`)
+}
+
+export const callUploadSingleFile = async (file: any, folderType: string) => {
+  const bodyFormData = new FormData()
+  bodyFormData.append('file', file)
+  return axios({
+    method: 'post',
+    url: '/api/v1/file/upload',
+    data: bodyFormData,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      folder_type: folderType
+    }
+  })
+}
+
+export const callCreateProduct = (
+  name: string,
+  price: number,
+  discount: number,
+  quantity: number,
+  image: string,
+  brand: string,
+  description: string
+) => {
+  return axios.post('/api/v1/product', {
+    name,
+    price,
+    discount,
+    quantity,
+    image,
+    brand,
+    description
+  })
 }

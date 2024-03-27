@@ -107,7 +107,11 @@ const CartPage = () => {
                       to={`/product/${item.product?._id}`}
                       className='w-10 h-10 border rounded-md lg:w-20 lg:h-20 border-neutral-300'
                     >
-                      <img src={item?.product?.image} alt='' className='object-cover w-full h-full' />
+                      <img
+                        src={`${import.meta.env.VITE_BACKEND_URL}/images/product/${item.product?.image}`}
+                        alt=''
+                        className='object-cover w-full h-full'
+                      />
                     </Link>
                     <div className='lg:w-[300px] w-[100px]'>
                       <span className='text-sm lg:line-clamp-1 line-clamp-3'>{item?.product?.name}</span>
