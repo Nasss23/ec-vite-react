@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useAppDispatch, useAppSelector } from '@/redux/hook'
 import { decrementCart, deleteCart, fetchListCart, incrementCart } from '@/redux/slice/cart.slice'
+import { fetchListOrder } from '@/redux/slice/order.slice'
 import { Breadcrumb, Checkbox } from 'antd'
 import { useLayoutEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
@@ -8,16 +9,24 @@ import { Link, useNavigate } from 'react-router-dom'
 const CartPage = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const infoUser = useAppSelector((state) => state.account.user)
-  const carts = useAppSelector((state) => state.cart.listCart)
-  const filterCart = carts.data.filter((cart) => cart.user === infoUser?._id)
 
   const [selectedItems, setSelectedItems] = useState<string[]>([])
-
   const [selectAll, setSelectAll] = useState<boolean>(false)
+
+  const infoUser = useAppSelector((state) => state.account.user)
+  const carts = useAppSelector((state) => state.cart.listCart)
+  const order = useAppSelector((state) => state.order.listOrder)
+
+  const filterCart = carts.data ? carts.data.filter((cart) => cart.user === infoUser._id) : []
+  const itemsNotInOrder = filterCart.filter((cartItem) => {
+    return !order.data
+      ? true
+      : !order.data.some((orderItem) => orderItem.cart?.some((orderCartItem) => orderCartItem._id === cartItem._id))
+  })
 
   useLayoutEffect(() => {
     dispatch(fetchListCart())
+    dispatch(fetchListOrder())
   }, [dispatch])
 
   const handleDeleteCart = (id: any) => {
@@ -27,12 +36,8 @@ const CartPage = () => {
   // dùng GPT!!! hí hí:)))))
   const handleCheckboxChange = (id: string) => {
     if (selectedItems.includes(id)) {
-      // Nếu phần tử với id đã tồn tại trong mảng selectedItems
-      // Thực hiện loại bỏ phần tử đó khỏi mảng selectedItems
       setSelectedItems(selectedItems.filter((itemId) => itemId !== id))
     } else {
-      // Nếu phần tử với id không tồn tại trong mảng selectedItems
-      // Thêm phần tử đó vào mảng selectedItems
       setSelectedItems([...selectedItems, id])
     }
   }
@@ -40,12 +45,24 @@ const CartPage = () => {
   // dùng GPT!!! hí hí:)))))
   const handleSelectAllChange = () => {
     if (!selectAll) {
-      const allItemIds = carts.data.filter((cart) => cart.user === infoUser?._id).map((cart) => cart._id)
-      setSelectedItems(allItemIds)
+      const itemsNotInOrder = carts.data.filter((cartItem) => {
+        return !order?.data?.some((orderItem) =>
+          orderItem.cart?.some((orderCartItem) => orderCartItem._id === cartItem._id)
+        )
+      })
+      const itemsNotInOrderIds = itemsNotInOrder.map((item) => item._id)
+      setSelectedItems(itemsNotInOrderIds)
     } else {
       setSelectedItems([])
     }
     setSelectAll(!selectAll)
+  }
+
+  const increamentQuantity = async (id: string) => {
+    dispatch(incrementCart({ _id: id }))
+  }
+  const decrementQuantity = async (id: string) => {
+    dispatch(decrementCart({ _id: id }))
   }
 
   // dùng GPT!!! hí hí:)))))
@@ -58,19 +75,10 @@ const CartPage = () => {
     }, 0)
   }
 
-  const increamentQuantity = async (id: string) => {
-    dispatch(incrementCart({ _id: id }))
-  }
-  const decrementQuantity = async (id: string) => {
-    dispatch(decrementCart({ _id: id }))
-  }
-
   const buy = () => {
     // Lưu selectedItems vào localStorage
     localStorage.setItem('selectedItems', JSON.stringify(selectedItems))
     navigate('/payment')
-    // Chuyển hướng đến trang khác, có thể làm bằng cách sử dụng React Router hoặc các phương pháp chuyển hướng khác
-    // Ví dụ: history.push('/path-to-another-page');
   }
 
   return (
@@ -94,7 +102,7 @@ const CartPage = () => {
           </Checkbox>
         </div>
         <div className='flex flex-col gap-3'>
-          {filterCart.map((item) => (
+          {itemsNotInOrder.map((item) => (
             <div className='p-4 border rounded-md border-neutral-400' key={item._id}>
               <div className='flex items-center justify-between'>
                 <div className='flex items-center gap-2 lg:gap-4'>
