@@ -5,7 +5,6 @@ import { setRefreshTokenAction } from '../redux/auth/account.slice'
 
 const instance = axiosClient.create({
   baseURL: import.meta.env.VITE_BACKEND_URL as string,
-  // baseURL: import.meta.env.VITE_BACKEND_DEV as string,
   withCredentials: true
 })
 

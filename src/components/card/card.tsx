@@ -45,7 +45,7 @@ const Card: React.FC<IProps> = (props: IProps) => {
           />
         </div>
         <div className=''>
-          <p className='text-base leading-[22px] text-[#141718] font-semibold line-clamp-2'>{title}</p>
+          <p className='text-base leading-[22px] text-[#141718] font-semibold line-clamp-2 h-[44px]'>{title}</p>
           {/* <Rate className='text-sm' value={rate} /> */}
           <div className='flex items-center justify-between'>
             <div className='flex items-center gap-2'>
