@@ -7,12 +7,12 @@ import { Link, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { fetchListProduct, fetchProductById, updateProduct } from '@/redux/slice/product.slice'
-import { UploadImage } from '@/components/upload'
+// import { UploadImage } from '@/components/upload'
 
-interface IProductLogo {
-  name: string
-  uid: string
-}
+// interface IProductLogo {
+//   name: string
+//   uid: string
+// }
 const ProductUpdateAdmin = () => {
   const id = useParams()
   console.log('id: ', id)
@@ -32,7 +32,7 @@ const ProductUpdateAdmin = () => {
   const [brand, setBrand] = useState<string>('')
   console.log('brand: ', brand)
   const [description, setDescription] = useState<string>('')
-  const [image, setImage] = useState<IProductLogo[]>([])
+  //   const [image, setImage] = useState<IProductLogo[]>([])
 
   useEffect(() => {
     if (id) {
@@ -69,8 +69,8 @@ const ProductUpdateAdmin = () => {
   }, [data])
 
   const handleUpdateProduct = async () => {
-    console.log('object, ', { _id: dataId, name, description, discount, price, quantity, image })
-    dispatch(updateProduct({ _id: dataId, name, description, discount, price, quantity, image }))
+    console.log('object, ', { _id: dataId, name, description, discount, price, quantity })
+    dispatch(updateProduct({ _id: dataId, name, description, discount, price, quantity }))
   }
 
   return (
@@ -143,7 +143,7 @@ const ProductUpdateAdmin = () => {
             </div>
             <div className='hidden space-y-1'>
               <Label htmlFor='category'>Image</Label>
-              <UploadImage setImage={setImage} folder='product'></UploadImage>
+              {/* <UploadImage setImage={setImage} folder='product'></UploadImage> */}
             </div>
           </div>
           <div className=''>
