@@ -6,6 +6,7 @@ import { setLogoutAction } from '../../redux/auth/account.slice'
 import { Link, useNavigate } from 'react-router-dom'
 import { ContactsOutlined, LogoutOutlined } from '@ant-design/icons'
 import { IoPersonOutline } from 'react-icons/io5'
+import { GiHamburgerMenu } from 'react-icons/gi'
 const LayoutHeaderAdmin = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
@@ -42,9 +43,69 @@ const LayoutHeaderAdmin = () => {
       icon: <LogoutOutlined />
     }
   ]
+
+  const itemsMenu = [
+    {
+      label: (
+        <Link to={'/admin/home'} className='text-base'>
+          Home
+        </Link>
+      ),
+      key: 'home',
+      icon: <ContactsOutlined />
+    },
+    {
+      label: (
+        <Link to={'/admin/category'} className='text-base'>
+          Category
+        </Link>
+      ),
+      key: 'category',
+      icon: <ContactsOutlined />
+    },
+    {
+      label: (
+        <Link to={'/admin/brand'} className='text-base'>
+          Brand
+        </Link>
+      ),
+      key: 'brand',
+      icon: <ContactsOutlined />
+    },
+    {
+      label: (
+        <Link to={'/admin/product'} className='text-base'>
+          Product
+        </Link>
+      ),
+      key: 'product',
+      icon: <ContactsOutlined />
+    },
+    {
+      label: (
+        <Link to={'/'} className='text-base'>
+          Back home
+        </Link>
+      ),
+      key: 'back-home',
+      icon: <ContactsOutlined />
+    }
+  ]
   return (
     <div className='flex items-center justify-between px-3 py-4 rounded-md bg-neutral-100'>
-      <div>Hello</div>
+      <div>
+        <div className='hidden lg:flex'>Hello</div>
+        <div className='flex lg:hidden'>
+          <Dropdown menu={{ items: itemsMenu }} trigger={['click']}>
+            <div className='flex items-center gap-2'>
+              <span className='text-xl'>
+                <GiHamburgerMenu />
+              </span>
+              <span className=''>Menu</span>
+            </div>
+          </Dropdown>
+        </div>
+      </div>
       <div className='cursor-pointer '>
         {isAuthenticated === false ? (
           <Link to={'/auth/login'} className='flex items-center gap-2'>

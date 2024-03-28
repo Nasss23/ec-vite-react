@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useAppDispatch, useAppSelector } from '@/redux/hook'
-import { fetchListProduct } from '@/redux/slice/product.slice'
+import { deleteProduct, fetchListProduct } from '@/redux/slice/product.slice'
 import { IProduct } from '@/types/backend'
 import { useLayoutEffect } from 'react'
 import { Link } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 const ProductAdmin = () => {
   const dispatch = useAppDispatch()
@@ -11,6 +13,27 @@ const ProductAdmin = () => {
   useLayoutEffect(() => {
     dispatch(fetchListProduct())
   }, [dispatch])
+
+  const handleDelete = (id: any) => {
+    Swal.fire({
+      title: 'Bạn có chắc chắn xóa?',
+      // text: ,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Đồng ý',
+      cancelButtonText: 'Hủy'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: 'Xóa thành công',
+          icon: 'success'
+        })
+        dispatch(deleteProduct({ _id: id }))
+      }
+    })
+  }
   return (
     <>
       <div className='space-y-2'>
@@ -91,7 +114,7 @@ const ProductAdmin = () => {
                     </button>
                     <button
                       className='px-3 py-2 bg-red-500 rounded-md cursor-pointer'
-                      //   onClick={() => handleDelete(item._id)}
+                      onClick={() => handleDelete(item._id)}
                     >
                       Delete
                     </button>

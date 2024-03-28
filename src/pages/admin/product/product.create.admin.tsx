@@ -30,6 +30,7 @@ const ProductCreateAdmin = () => {
   const [image, setImage] = useState<IProductLogo[]>([])
 
   const value = brands.data
+  console.log('value: ', value)
   const options = value.map((item) => ({
     label: <span>{item.name}</span>,
     value: item._id
@@ -48,13 +49,6 @@ const ProductCreateAdmin = () => {
     if (res.data) {
       dispatch(resetCreateProduct())
       message.success('Thêm thành công')
-      setName('')
-      setPrice(0)
-      setDiscount(0)
-      setQuantity(0)
-      setImage([])
-      setBrand('')
-      setDescription('')
     }
   }
 
@@ -74,7 +68,7 @@ const ProductCreateAdmin = () => {
       </div>
       <div className='p-5 bg-white rounded-md'>
         <form action='' className='space-y-5' onSubmit={handleSubmit(handleCreateProduct)}>
-          <div className='grid grid-cols-4 gap-5'>
+          <div className='grid grid-cols-1 gap-3 lg:gap-5 lg:grid-cols-4'>
             <div className='space-y-1'>
               <Label htmlFor='name'>Product Name</Label>
               <Input placeholder='Enter name' onChange={(e) => setName(e.target.value)} />
@@ -128,8 +122,13 @@ const ProductCreateAdmin = () => {
               <UploadImage setImage={setImage} folder='product'></UploadImage>
             </div>
           </div>
-          <div>
-            <ReactQuill theme='snow' className='h-[300px] mb-10' value={description} onChange={setDescription} />
+          <div className=''>
+            <ReactQuill
+              theme='snow'
+              className='h-[300px] lg:h-[600px] lg:mb-10 mb-14'
+              value={description}
+              onChange={setDescription}
+            />
           </div>
           <Button type='primary' htmlType='submit' className='w-[200px] bg-blue-500'>
             Submit
