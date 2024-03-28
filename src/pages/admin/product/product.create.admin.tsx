@@ -9,6 +9,7 @@ import { callCreateProduct } from '@/config/api'
 import { useForm } from 'react-hook-form'
 import { fetchListProduct, resetCreateProduct } from '@/redux/slice/product.slice'
 import { UploadImage } from '@/components/upload'
+import { fetchListBrand } from '@/redux/slice/brand.slice'
 
 interface IProductLogo {
   name: string
@@ -38,6 +39,7 @@ const ProductCreateAdmin = () => {
 
   useEffect(() => {
     dispatch(fetchListProduct())
+    dispatch(fetchListBrand())
   }, [dispatch])
 
   const handleBrandChange = (brand: any) => {
