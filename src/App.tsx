@@ -21,6 +21,7 @@ import ProductCreateAdmin from './pages/admin/product/product.create.admin.tsx'
 import CartPage from './pages/client/cart.client.tsx'
 import CategoryDetailsPage from './pages/client/category.details.client.tsx'
 import PaymentPage from './pages/client/payment.client.tsx'
+import ProductUpdateAdmin from './pages/admin/product/product.update.admin.tsx'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -105,6 +106,10 @@ function App() {
         {
           path: 'product/create',
           element: <ProductCreateAdmin></ProductCreateAdmin>
+        },
+        {
+          path: 'product/update/:id',
+          element: <ProductUpdateAdmin></ProductUpdateAdmin>
         }
       ]
     }

@@ -34,6 +34,7 @@ const ProductAdmin = () => {
       }
     })
   }
+
   return (
     <>
       <div className='space-y-2'>
@@ -106,12 +107,12 @@ const ProductAdmin = () => {
                   <td className='px-6 py-4 whitespace-nowrap'>{item.quantity}</td>
                   <td className='px-6 py-4 whitespace-nowrap'>{item.brand?.name}</td>
                   <td className='flex items-center gap-3 px-6 py-4 text-right text-white'>
-                    <button
+                    <Link
+                      to={`/admin/product/update/${item?._id}`}
                       className='px-3 py-2 bg-blue-500 rounded-md cursor-pointer'
-                      //   onClick={() => handleOpenModal(item)}
                     >
                       Edit
-                    </button>
+                    </Link>
                     <button
                       className='px-3 py-2 bg-red-500 rounded-md cursor-pointer'
                       onClick={() => handleDelete(item._id)}
