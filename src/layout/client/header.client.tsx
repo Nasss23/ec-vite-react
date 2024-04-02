@@ -5,7 +5,7 @@ import { FaFacebookF, FaRegHeart, FaTelegramPlane } from 'react-icons/fa'
 import { PiInstagramLogoFill } from 'react-icons/pi'
 import { IconCategory } from '../../assets/icons'
 import { IoIosArrowDown } from 'react-icons/io'
-import { IoPersonOutline } from 'react-icons/io5'
+import { IoKeyOutline, IoPersonOutline } from 'react-icons/io5'
 import { BsCart2 } from 'react-icons/bs'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../redux/hook'
@@ -16,14 +16,15 @@ import { fetchListCart } from '@/redux/slice/cart.slice'
 import { Cart } from '@/components/cart'
 import { setLogoutAction } from '@/redux/auth/account.slice'
 import { fetchListProductParams } from '@/redux/slice/product.slice'
+import { ADMIN } from '@/config/role'
 
 const Header = () => {
   const navigate = useNavigate()
+
   const dispatch = useAppDispatch()
   const isAuthenticated = useAppSelector((state) => state.account.isAuthenticated)
   const user = useAppSelector((state) => state.account.user)
   const cart = useAppSelector((state) => state.cart.listCart)
-
   const product = useAppSelector((state) => state.product.listProductParams)
 
   const [search, setSearch] = useState<string>('')
@@ -60,9 +61,13 @@ const Header = () => {
       icon: <ContactsOutlined />
     },
     {
-      label: <Link to={'/admin/home'}>Trang Quản Trị</Link>,
+      label: (
+        <div className={`${user?.role === ADMIN ? 'flex' : 'hidden'}`}>
+          <Link to={'/admin/home'}>Trang Quản Trị</Link>
+        </div>
+      ),
       key: 'admin',
-      icon: <></>
+      icon: <IoKeyOutline />
     },
     {
       label: (

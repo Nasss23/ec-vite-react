@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Card } from '@/components/card'
+import { CardSkeleton } from '@/components/skeleton'
 import { useAppDispatch, useAppSelector } from '@/redux/hook'
 import { fetchListBrand } from '@/redux/slice/brand.slice'
 import { fetchListCategory } from '@/redux/slice/category.slice'
@@ -102,19 +103,11 @@ const CategoryDetailsPage = () => {
           </div>
         ) : (
           <div className='flex items-center justify-center w-full '>
-            <div className='grid w-full grid-cols-5 gap-1'>
-              {Array(5)
+            <div className='grid w-full grid-cols-2 gap-1 lg:grid-cols-5'>
+              {Array(10)
                 .fill(0)
                 .map((_item, index) => (
-                  <div className='flex flex-col gap-1' key={index}>
-                    <Skeleton.Button active style={{ height: 240 }} block size='large' />
-                    <Skeleton.Button active style={{}} block size='large' />
-                    <div className='flex gap-1'>
-                      <Skeleton.Button active style={{}} block size='small' />
-                      <Skeleton.Button active style={{}} block size='small' />
-                    </div>
-                    <Skeleton.Button active style={{}} block size='large' />
-                  </div>
+                  <CardSkeleton key={index}></CardSkeleton>
                 ))}
             </div>
           </div>

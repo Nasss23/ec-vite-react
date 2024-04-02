@@ -19,10 +19,7 @@ interface IState {
     _id: string
     email: string
     name: string
-    role: {
-      _id: string
-      name: string
-    }
+    role: string
   }
 }
 
@@ -35,10 +32,7 @@ const initialState: IState = {
     _id: '',
     email: '',
     name: '',
-    role: {
-      _id: '',
-      name: ''
-    }
+    role: ''
   }
 }
 
@@ -61,10 +55,7 @@ export const accountSlice = createSlice({
         _id: '',
         email: '',
         name: '',
-        role: {
-          _id: '',
-          name: ''
-        }
+        role: ''
       }
     },
     setRefreshTokenAction: (state, action) => {

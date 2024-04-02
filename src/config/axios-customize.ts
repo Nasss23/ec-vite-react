@@ -38,7 +38,7 @@ instance.interceptors.response.use(
     }
   },
   async (error) => {
-    console.log('error line 58: ', error)
+    // console.log('error line 58: ', error)
     if (
       error.config &&
       error.response &&
@@ -47,7 +47,7 @@ instance.interceptors.response.use(
       !error.config.headers[NO_RETRY_HEADER]
     ) {
       const access_token = await handleRefreshToken()
-      console.log('access_token line 66: ', access_token)
+      // console.log('access_token line 66: ', access_token)
       error.config.headers[NO_RETRY_HEADER] = 'true'
       if (access_token) {
         error.config.headers['Authorization'] = `Bearer ${access_token}`
@@ -60,9 +60,8 @@ instance.interceptors.response.use(
       error.config &&
       error.response &&
       +error.response.status === 400 &&
-      error.config.url === '/api/v1/auth/refresh'
-      // &&
-      // location.pathname.startsWith('/admin')
+      error.config.url === '/api/v1/auth/refresh' &&
+      location.pathname.startsWith('/admin')
     ) {
       const message = error?.response?.data?.message ?? 'Có lỗi xảy ra, vui lòng login.'
       //dispatch redux action
