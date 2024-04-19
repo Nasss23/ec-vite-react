@@ -63,7 +63,7 @@ const Card: React.FC<IProps> = (props: IProps) => {
         </div>
       </Link>
       <button
-        className='w-full px-5 py-2 mt-2 font-medium text-white transition-all ease-linear bg-black rounded-lg hover:bg-blue-500 decoration-slice'
+        className='w-full px-5 py-2 mt-2 font-medium text-white transition-all ease-linear bg-black rounded-lg lg:hover:bg-blue-500 decoration-slice'
         onClick={handleButton}
       >
         Add to cart

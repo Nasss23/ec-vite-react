@@ -55,7 +55,7 @@ const ProductAdmin = () => {
                 <th scope='col' className='px-6 py-3 whitespace-nowrap'>
                   ID
                 </th>
-                <th scope='col' className='px-6 py-3 whitespace-nowrap'>
+                <th scope='col' className='px-6 py-3 whitespace-nowrap !w-[300px]'>
                   Product Name
                 </th>
                 <th scope='col' className='px-6 py-3 whitespace-nowrap'>
@@ -90,7 +90,9 @@ const ProductAdmin = () => {
                   <th scope='row' className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
                     {index + 1}
                   </th>
-                  <td className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>{item.name}</td>
+                  <td className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white !w-[300px]'>
+                    {item.name}
+                  </td>
                   <td className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
                     {item.price}
                   </td>

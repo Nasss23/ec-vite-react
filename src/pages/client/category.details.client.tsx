@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hook'
 import { fetchListBrand } from '@/redux/slice/brand.slice'
 import { fetchListCategory } from '@/redux/slice/category.slice'
 import { fetchListProduct, fetchListProductParams } from '@/redux/slice/product.slice'
-import { Breadcrumb, Skeleton } from 'antd'
+import { Breadcrumb, Empty, Skeleton } from 'antd'
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
@@ -14,11 +14,13 @@ const CategoryDetailsPage = () => {
   const dispatch = useAppDispatch()
   const brand = useAppSelector((state) => state.brand.listBrand)
   const product = useAppSelector((state) => state.product.listProductParams)
+  console.log('product: ', product)
   const category = useAppSelector((state) => state.category.listCategory)
 
   const resBrand = brand.data.filter((brand) => brand.category._id === id)
   const resCategory = category.data.filter((category) => category._id === id)
   const resProduct = product.data.filter((product) => product.brand?.category === id)
+  console.log('resProduct: ', resProduct)
 
   const [selectedBrands, setSelectedBrands] = useState<string[]>([])
 
@@ -27,6 +29,10 @@ const CategoryDetailsPage = () => {
     dispatch(fetchListProduct())
     dispatch(fetchListCategory())
   }, [dispatch])
+
+  useEffect(() => {
+    dispatch(fetchListProductParams({ name: selectedBrands }))
+  }, [dispatch, selectedBrands])
 
   const handleBrandClick = (brandName: string) => {
     let newSelectedBrands = [...selectedBrands]
@@ -38,6 +44,13 @@ const CategoryDetailsPage = () => {
     setSelectedBrands(newSelectedBrands)
     dispatch(fetchListProductParams({ name: newSelectedBrands }))
   }
+
+  if (!resProduct)
+    return (
+      <div className='py-5 lg:pb-7 lg:py-0'>
+        <Empty></Empty>
+      </div>
+    )
 
   return (
     <div className='flex flex-col gap-5 py-5 content'>

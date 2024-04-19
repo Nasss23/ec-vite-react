@@ -51,7 +51,10 @@ const CartContent = () => {
                   className='object-cover rounded-md'
                 />
               </Link>
-              <h4 className='text-sm line-clamp-1 lg:w-[250px]'>{item.product?.name}</h4>
+              <div className='flex flex-col gap-1'>
+                <h4 className='text-sm line-clamp-1 lg:w-[250px]'>{item.product?.name}</h4>
+                <span>Số lượng: {item.quantity}</span>
+              </div>
             </div>
             <div className='flex flex-col  gap-3 w-[120px]'>
               <div className='flex items-end gap-1'>

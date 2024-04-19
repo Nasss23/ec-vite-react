@@ -81,3 +81,7 @@ export const callCreateProduct = (
     description
   })
 }
+
+export const callFetchProduct = (query: string) => {
+  return axios.get(`/api/v1/product?${query}`)
+}

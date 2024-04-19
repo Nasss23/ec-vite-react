@@ -3,7 +3,7 @@
 /* eslint-disable no-empty-pattern */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from '../../config/axios-customize'
-import { IMeta, IProduct } from '../../types/backend'
+import { IBrand, IMeta, IProduct } from '../../types/backend'
 
 export const fetchListProduct = createAsyncThunk('product/fetchProduct', async (_product, _thunkAPI) => {
   const res = await axios.get('/api/v1/product')
@@ -34,7 +34,7 @@ interface IProductState {
     name: string | undefined
     uid: string
   }[]
-  brand?: string
+  brand?: IBrand
   description?: string
   quantity?: number
   discount?: number

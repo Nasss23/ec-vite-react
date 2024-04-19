@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { CiSearch } from 'react-icons/ci'
 import { ContactsOutlined, LogoutOutlined } from '@ant-design/icons'
-import { FaFacebookF, FaRegHeart, FaTelegramPlane } from 'react-icons/fa'
+import { FaFacebookF, FaTelegramPlane } from 'react-icons/fa'
 import { PiInstagramLogoFill } from 'react-icons/pi'
 import { IconCategory } from '../../assets/icons'
 import { IoIosArrowDown } from 'react-icons/io'
@@ -125,10 +125,10 @@ const Header = () => {
           <div className='relative flex items-center justify-between flex-1 gap-3 px-3 py-3 border rounded border-neutral-200d'>
             <input
               type='text'
-              value={search}
+              // value={search}
               className='w-[277px]'
               placeholder='Search product'
-              onChange={(e) => setSearch(e.target.value)}
+              // onChange={(e) => setSearch(e.target.value)}
             />
             <button className='text-xl'>
               <CiSearch />
@@ -238,12 +238,6 @@ const Header = () => {
             </div>
           </div>
           <div className='flex items-center gap-10 text-xs leading-5 text-white cursor-pointer'>
-            <div className='flex items-center gap-2'>
-              <span className='text-xl'>
-                <FaRegHeart />
-              </span>
-              Favorites
-            </div>
             {cart ? (
               <Cart></Cart>
             ) : (

@@ -33,6 +33,7 @@ const ProductDetailsPage = () => {
         <Empty></Empty>
       </div>
     )
+
   return (
     <div className='py-5 space-y-5 lg:pb-7 lg:py-0 content'>
       <div>
@@ -65,9 +66,8 @@ const ProductDetailsPage = () => {
             {product.price?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
           </span>
           <div className='flex items-center gap-5'>
-            <button className='w-full px-5 py-2 mt-2 font-medium text-white bg-red-500 rounded-lg t'>Buy</button>
             <button
-              className='w-full px-5 py-2 mt-2 font-medium text-white bg-blue-500 rounded-lg '
+              className='px-5 py-2 mt-2 font-medium text-white bg-blue-500 rounded-lg w-[400px]'
               onClick={handleButton}
             >
               Add to cart
